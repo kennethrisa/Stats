@@ -20,6 +20,7 @@ Edit stats1.php, find $url and provide your api key after key=yourKey
 SQLStats.zip - Unzip this and add it to your plugin directory.
 
 Plugin is now unmaintaned: http://oxidemod.org/threads/stats-unmaintained.9849/
+Use it on your own risk.
 
 # Template by bootstrap
 
