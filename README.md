@@ -1,13 +1,21 @@
 # Rust PHP Stats page
 
-Shows KDR of players
+Shows stats of players like KDR and online time.
 
+more coming soon.
 
 # Required:
+- Oxide
 - MySql/MariaDB
 - Apache2/nginx
 - php 5.6
 
+# Create database:
+
+# Oxide plugin:
+
 # Template by bootstrap
 
-# Oxide required
+# Demo: https://altirust.no/stats
+
+Kenna - Altirust.no
