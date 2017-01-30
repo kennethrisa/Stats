@@ -6,11 +6,15 @@ more coming soon.
 
 # Required:
 - Oxide
+- rust-servers.net user / api key
 - MySql/MariaDB
 - Apache2/nginx
 - php 5.6
 
 Create database:
+See SQLStats.txt
+
+Edit stats1.php, find $url and provide your api key after key=yourKey
 
 # Oxide plugin:
 SQLStats.zip - Unzip this and add it to your plugin directory.
