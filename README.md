@@ -10,12 +10,13 @@ more coming soon.
 - Apache2/nginx
 - php 5.6
 
-# Create database:
+Create database:
 
 # Oxide plugin:
+SQLStats.zip - Unzip this and add it to your plugin directory.
 
 # Template by bootstrap
 
-# Demo: https://altirust.no/stats
+Demo: https://altirust.no/stats
 
 Kenna - Altirust.no
