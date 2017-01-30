@@ -56,20 +56,7 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 
 ?>
 <section id="intro" class="intro-section">
-        <div class="container">
-			<!-- top 1 Row 
-        <div class="row">
-            <div class="col-lg-4 col-sm-6 text-center">
-                <h3>Top online</h3>
-                <p>test</p>
-            </div>
-            <div class="col-lg-4 col-sm-6 text-center">
-                <h3>Top kill's</h3>
-                <p>Test</p>
-            </div>
-        </div>
-        <hr>	-->
-		
+        <div class="container">	
 		<div class=""><p><b><?php
 $url = "https://rust-servers.net/api/?object=servers&element=detail&key=";
 $json = file_get_contents($url);
@@ -77,9 +64,7 @@ $json_data = json_decode($json, true);
 echo $json_data["name"];
 
 ?> </b></p></div>
-
-		<div class=""><pre><p><b>Last stats reset Time:</b> 29.09.2016</p></div><br />
-
+		<div class=""><pre><p><b>Last stats reset Time:</b> 05.01.2017</p></div><br />
 			<div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="card card-inverse card-success">
