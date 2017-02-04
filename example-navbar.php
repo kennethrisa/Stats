@@ -26,6 +26,10 @@ include("mconfig.php");
                     <a class="page-scroll" href="https://forum.altirust.no">Forum</a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/kennethrisa/Stats/issues">Report bug</a></li>
+              <li><a href="https://github.com/kennethrisa/Stats/releases">Changelog</a></li>
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
