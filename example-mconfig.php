@@ -17,4 +17,6 @@ if ($conn->connect_error) {
 // Site last reset date:
 $last_reset = "Last stats reset time: 03.02.2017";
 
+$siteName = "Altirust.no";
+
 ?>
