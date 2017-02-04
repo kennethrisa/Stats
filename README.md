@@ -2,6 +2,11 @@
 
 Shows stats of players like KDR and online time.
 
+git clone https://github.com/kennethrisa/Stats.git
+
+reanme example-mconfig.php to mconfig.php
+rename example-apiconfig.php to apiconfig.php
+
 more coming soon.
 
 # Required:
