@@ -133,7 +133,7 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 						group by killer
 						order by 2 desc limit 100";
 
-				$result = $conn->query($sql,$sql2);
+				$result = $conn->query($sql);
 
 				if ($result->num_rows > 0) {
 					// output data of each row
@@ -180,7 +180,7 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 						group by 1
 						order by 2 desc limit 100";
 
-				$result = $conn->query($sql,$sql2);
+				$result = $conn->query($sql);
 
 				if ($result->num_rows > 0) {
 					// output data of each row
