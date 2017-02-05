@@ -1,5 +1,5 @@
-<?php 
-include("mconfig.php"); 
+<?php
+include("mconfig.php");
 include("apiconfig.php")
 ?>
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -13,6 +13,7 @@ include("apiconfig.php")
 $.extend( $.fn.dataTable.defaults, {
     searching: true,
     ordering:  false,
+    pagingType: "simple",
 	bLengthChange: false
 } );
 
@@ -25,13 +26,13 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#example2').DataTable({
 	ordering: true
-	})	
+	})
 } );
 
 $(document).ready(function() {
     $('#example3').DataTable({
 	ordering: true
-	})	
+	})
 } );
 </script>
 <?php
@@ -41,16 +42,16 @@ $sqltotalusers = "SELECT COUNT(id) as total FROM stats_player";
 $sqltotalkills = "select COUNT(id) as kills FROM stats_player_kill";
 
 $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause not in('SUICIDE','BITE')";
-	
+
 	// Total users connect to this server
 	$result = $conn->query($sqltotalusers);
 	$data = $result->fetch_assoc();
 	$Total =  $data['total'];
-	
+
 	$result = $conn->query($sqltotalkills);
 	$data = $result->fetch_assoc();
 	$TotalKills =  $data['kills'];
-	
+
 	$result = $conn->query($sqltotaldeath);
 	$data = $result->fetch_assoc();
 	$TotalDeath =  $data['death'];
@@ -58,7 +59,7 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 ?>
 <section id="intro" class="intro-section">
         <div class="container">
-			<!-- top 1 Row 
+			<!-- top 1 Row
         <div class="row">
             <div class="col-lg-4 col-sm-6 text-center">
                 <h3>Top online</h3>
@@ -70,7 +71,7 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
             </div>
         </div>
         <hr>	-->
-		
+
 		<div class=""><p><b><?php echo $server_name ?> </b></p></div>
 
 		<div class=""><pre><p><?php echo $last_reset ?></p></div><br />
@@ -122,18 +123,18 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
                 </div>
             </div>
             <!--/row-->
-			
+
             <div class="row">
                 <div class="col-lg-6">
                     <h3>Kill ratio</h3>
-				<?php 
+				<?php
 				$sql = "SELECT p.name as name, count(k.killer) as killer FROM stats_player p, stats_player_kill k
 						where p.id = k.killer
 						group by killer
 						order by 2 desc limit 100";
-				
+
 				$result = $conn->query($sql,$sql2);
-				
+
 				if ($result->num_rows > 0) {
 					// output data of each row
 						echo " <div class='table-responsive'>";
@@ -148,39 +149,39 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 						echo "</tr>";
 						echo "</thead>";
 						echo "<tbody>";
-						
+
 						$counter = 1;
-						
+
 					while($row = $result->fetch_assoc()) {
-												
+
 						$counter2 = $counter++;
-						
+
 						echo "<tr>";
 						echo "<th scope='row'>$counter2</th>";
 						echo "<td>" . $row['name']. "</td>";
 						echo "<td>" . $row['killer']. "</td>";
 						echo "</tr>";
-						
+
 					}
 						echo "</tbody>";
 						echo "</table>";
 						echo "</div>";
 					}
-						
+
 				?>
                 </div>
 				<div class="col-lg-6">
                 <h3>
                     Death ratio
                 </h3>
-                <?php 
+                <?php
 				$sql = "SELECT p.name as name, count(d.count) as death FROM stats_player p, stats_player_death d
 						where p.id = d.player and cause not in('SUICIDE')
 						group by 1
 						order by 2 desc limit 100";
-				
+
 				$result = $conn->query($sql,$sql2);
-				
+
 				if ($result->num_rows > 0) {
 					// output data of each row
 						echo " <div class='table-responsive'>";
@@ -195,25 +196,25 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 						echo "</tr>";
 						echo "</thead>";
 						echo "<tbody>";
-						
+
 						$counter = 1;
-						
+
 					while($row = $result->fetch_assoc()) {
-												
+
 						$counter2 = $counter++;
-						
+
 						echo "<tr>";
 						echo "<th scope='row'>$counter2</th>";
 						echo "<td>" . $row['name']. "</td>";
 						echo "<td>" . $row['death']. "</td>";
 						echo "</tr>";
-						
+
 					}
 						echo "</tbody>";
 						echo "</table>";
 						echo "</div>";
 					}
-						
+
 				?>
             </div>
             </div>
@@ -222,8 +223,8 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
             <div class="row">
                 <div class="col-lg-6">
                     <h3>Top Online</h3>
-					<?php 
-					
+					<?php
+
 					//get_hours
 					function get_hours($seconds)
 					{
@@ -248,8 +249,8 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 							return '0m';
 						else
 							return $return;
-					}	
-					
+					}
+
 					$sql = "SELECT name, online_seconds FROM stats_player order by online_seconds desc limit 100";
 					$result = $conn->query($sql);
 
@@ -264,22 +265,22 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 						echo "</tr>";
 						echo "</thead>";
 						echo "<tbody>";
-						
+
 						$counter = 1;
-						
+
 					while($row = $result->fetch_assoc()) {
 
-						
+
 						$counter2 = $counter++;
-						
+
 						echo "<tr>";
 						echo "<th scope='row'>$counter2</th>";
 						echo "<td>" . $row['name']. "</a></td>";
 						echo "<td>".get_hours($row['online_seconds'])."</td>";
 						echo "</tr>";
-						
 
-					
+
+
 					}
 						echo "</tbody>";
 						echo "</table>";
@@ -288,8 +289,8 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 				?>
                 </div>
             </div>
-        
+
     </section>
-	
+
 
 	    <script src="js/bootstrap.min.js"></script>
