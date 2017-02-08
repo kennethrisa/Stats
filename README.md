@@ -7,6 +7,8 @@ git clone https://github.com/kennethrisa/Stats.git
 reanme example-mconfig.php to mconfig.php
 rename example-apiconfig.php to apiconfig.php
 
+Im not a pro devloper, just testing and learning!
+
 more coming soon.
 
 # Required:
