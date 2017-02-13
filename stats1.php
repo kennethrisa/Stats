@@ -170,48 +170,48 @@ $TotalDeath =  $data['death'];
         <h3>
             Death ratio
         </h3>
-          <?php
-				      $sql = "SELECT p.name as name, count(d.count) as death FROM stats_player p, stats_player_death d
-  						where p.id = d.player and cause not in('SUICIDE')
-  						group by 1
-  						order by 2 desc limit 100";
+  <?php
+    $sql = "SELECT p.name as name, count(d.count) as death FROM stats_player p, stats_player_death d
+		where p.id = d.player and cause not in('SUICIDE')
+		group by 1
+		order by 2 desc limit 100";
 
-  				$result = $conn->query($sql);
+  $result = $conn->query($sql);
 
-  				if ($result->num_rows > 0) {
-  					// output data of each row
-  						echo " <div class='table-responsive'>";
-  						echo "";
-  						echo "";
-  						echo "<table id='example2' class='display compact table table-hover table-striped results '>";
-  						echo "<thead>";
-  						echo "<tr>";
-  						echo "<th>#</th>";
-  						echo "<th>Name</th>";
-  						echo "<th>Deaths</th>";
-  						echo "</tr>";
-  						echo "</thead>";
-  						echo "<tbody>";
+  if ($result->num_rows > 0) {
+	// output data of each row
+  	echo " <div class='table-responsive'>";
+  	echo "";
+  	echo "";
+  	echo "<table id='example2' class='display compact table table-hover table-striped results '>";
+  	echo "<thead>";
+  	echo "<tr>";
+  	echo "<th>#</th>";
+  	echo "<th>Name</th>";
+  	echo "<th>Deaths</th>";
+  	echo "</tr>";
+  	echo "</thead>";
+    echo "<tbody>";
 
-  						$counter = 1;
+    $counter = 1;
 
-  					while($row = $result->fetch_assoc()) {
+    while($row = $result->fetch_assoc()) {
 
-  						$counter2 = $counter++;
+    $counter2 = $counter++;
 
-  						echo "<tr>";
-  						echo "<th scope='row'>$counter2</th>";
-  						echo "<td>" . $row['name']. "</td>";
-  						echo "<td>" . $row['death']. "</td>";
-  						echo "</tr>";
+    echo "<tr>";
+    echo "<th scope='row'>$counter2</th>";
+    echo "<td>" . $row['name']. "</td>";
+    echo "<td>" . $row['death']. "</td>";
+    echo "</tr>";
 
-  					}
-  						echo "</tbody>";
-  						echo "</table>";
-  						echo "</div>";
-  					}
+    }
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
+    }
 
-  				?>
+?>
         </div>
     </div>
       <div class="row">
