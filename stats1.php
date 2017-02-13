@@ -89,7 +89,7 @@ $TotalDeath =  $data['death'];
     <div class="card card-inverse card-info">
       <div class="card-block bg-info">
         <div class="rotate">
-          <i class="fa fa-list fa-4x"></i>
+          <i class="fa fa-list fa-5x"></i>
         </div><!-- Total users in database -->
           <h6 class="text-uppercase">Server Rank</h6>
     			<h1 class="display-4"><?php echo $server_rank ?></h1>
@@ -111,7 +111,7 @@ $TotalDeath =  $data['death'];
       <div class="card card-inverse card-warning">
           <div class="card-block bg-warning">
               <div class="rotate">
-                  <i class="fa fa-share fa-5x"></i>
+                  <i class="fa fa-times fa-5x"></i>
               </div>
               <h6 class="text-uppercase">Total deaths</h6>
               <h1 class="display-4"><?php echo $TotalDeath ?></h1>
