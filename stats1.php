@@ -72,213 +72,213 @@ $TotalDeath =  $data['death'];
   </div>
   <hr>	-->
 <div class=""><p><b><?php echo $server_name ?> </b></p></div>
-  <div class=""><pre><p><?php echo $last_reset ?></p></div><br />
-		<div class="row">
-      <div class="col-md-3 col-sm-6">
-        <div class="card card-inverse card-success">
-          <div class="card-block bg-success">
-            <div class="rotate">
-              <i class="fa fa-user fa-5x"></i>
-            </div>
-              <h6 class="text-uppercase">Players Online</h6>
-  						<h1 class="display-4"><?php echo $server_players ?></h1>
-          </div>
+<div class=""><pre><p><?php echo $last_reset ?></p></div><br />
+<div class="row">
+  <div class="col-md-3 col-sm-6">
+    <div class="card card-inverse card-success">
+      <div class="card-block bg-success">
+        <div class="rotate">
+          <i class="fa fa-user fa-5x"></i>
         </div>
-      </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card card-inverse card-info">
-        <div class="card-block bg-info">
-          <div class="rotate">
-            <i class="fa fa-list fa-4x"></i>
-          </div><!-- Total users in database -->
-            <h6 class="text-uppercase">Server Rank</h6>
-  					<h1 class="display-4"><?php echo $server_rank ?></h1>
-        </div>
-        </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="card card-inverse card-danger">
-                <div class="card-block bg-danger">
-                    <div class="rotate">
-                        <i class="fa fa-deviantart fa-5x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Total kills</h6>
-                    <h1 class="display-4"><?php echo $TotalKills ?></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <div class="card card-inverse card-warning">
-                <div class="card-block bg-warning">
-                    <div class="rotate">
-                        <i class="fa fa-share fa-5x"></i>
-                    </div>
-                    <h6 class="text-uppercase">Total deaths</h6>
-                    <h1 class="display-4"><?php echo $TotalDeath ?></h1>
-                </div>
-            </div>
+          <h6 class="text-uppercase">Players Online</h6>
+          <h1 class="display-4"><?php echo $server_players ?></h1>
         </div>
     </div>
-    <!--/row-->
-    <div class="row">
-      <div class="col-lg-6">
-        <h3>Kill ratio</h3>
-  				<?php
-  				$sql = "SELECT p.name as name, count(k.killer) as killer FROM stats_player p, stats_player_kill k
-  						where p.id = k.killer
-  						group by killer
-  						order by 2 desc limit 100";
+  </div>
+  <div class="col-md-3 col-sm-6">
+    <div class="card card-inverse card-info">
+      <div class="card-block bg-info">
+        <div class="rotate">
+          <i class="fa fa-list fa-4x"></i>
+        </div><!-- Total users in database -->
+          <h6 class="text-uppercase">Server Rank</h6>
+    			<h1 class="display-4"><?php echo $server_rank ?></h1>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+      <div class="card card-inverse card-danger">
+          <div class="card-block bg-danger">
+              <div class="rotate">
+                  <i class="fa fa-deviantart fa-5x"></i>
+              </div>
+              <h6 class="text-uppercase">Total kills</h6>
+              <h1 class="display-4"><?php echo $TotalKills ?></h1>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-3 col-sm-6">
+      <div class="card card-inverse card-warning">
+          <div class="card-block bg-warning">
+              <div class="rotate">
+                  <i class="fa fa-share fa-5x"></i>
+              </div>
+              <h6 class="text-uppercase">Total deaths</h6>
+              <h1 class="display-4"><?php echo $TotalDeath ?></h1>
+          </div>
+      </div>
+  </div>
+</div>
+<!--/row-->
+<div class="row">
+  <div class="col-lg-6">
+    <h3>Kill ratio</h3>
+			<?php
+			$sql = "SELECT p.name as name, count(k.killer) as killer FROM stats_player p, stats_player_kill k
+					where p.id = k.killer
+					group by killer
+					order by 2 desc limit 100";
 
-  				$result = $conn->query($sql);
+			$result = $conn->query($sql);
 
-  				if ($result->num_rows > 0) {
-  					// output data of each row
-  						echo " <div class='table-responsive'>";
-  						echo "";
-  						echo "";
-  						echo "<table id='example' class='display compact table table-hover table-striped results '>";
-  						echo "<thead>";
-  						echo "<tr>";
-  						echo "<th>#</th>";
-  						echo "<th>Name</th>";
-  						echo "<th>Kills</th>";
-  						echo "</tr>";
-  						echo "</thead>";
-  						echo "<tbody>";
+			if ($result->num_rows > 0) {
+				// output data of each row
+					echo " <div class='table-responsive'>";
+					echo "";
+					echo "";
+					echo "<table id='example' class='display compact table table-hover table-striped results '>";
+					echo "<thead>";
+					echo "<tr>";
+					echo "<th>#</th>";
+					echo "<th>Name</th>";
+					echo "<th>Kills</th>";
+					echo "</tr>";
+					echo "</thead>";
+					echo "<tbody>";
 
-  						$counter = 1;
+					$counter = 1;
 
-  					while($row = $result->fetch_assoc()) {
+				while($row = $result->fetch_assoc()) {
 
-  						$counter2 = $counter++;
+					$counter2 = $counter++;
 
-  						echo "<tr>";
-  						echo "<th scope='row'>$counter2</th>";
-  						echo "<td>" . $row['name']. "</td>";
-  						echo "<td>" . $row['killer']. "</td>";
-  						echo "</tr>";
+					echo "<tr>";
+					echo "<th scope='row'>$counter2</th>";
+					echo "<td>" . $row['name']. "</td>";
+					echo "<td>" . $row['killer']. "</td>";
+					echo "</tr>";
 
-  					}
-  						echo "</tbody>";
-  						echo "</table>";
-  						echo "</div>";
-  					}
+				}
+					echo "</tbody>";
+					echo "</table>";
+					echo "</div>";
+				}
 
-  				?>
-        </div>
-			<div class="col-lg-6">
-        <h3>
-            Death ratio
-        </h3>
+			?>
+    </div>
+	<div class="col-lg-6">
+    <h3>
+        Death ratio
+    </h3>
+<?php
+$sql = "SELECT p.name as name, count(d.count) as death FROM stats_player p, stats_player_death d
+where p.id = d.player and cause not in('SUICIDE')
+group by 1
+order by 2 desc limit 100";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+// output data of each row
+echo " <div class='table-responsive'>";
+echo "";
+echo "";
+echo "<table id='example2' class='display compact table table-hover table-striped results '>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>#</th>";
+echo "<th>Name</th>";
+echo "<th>Deaths</th>";
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
+
+$counter = 1;
+
+while($row = $result->fetch_assoc()) {
+
+$counter2 = $counter++;
+
+echo "<tr>";
+echo "<th scope='row'>$counter2</th>";
+echo "<td>" . $row['name']. "</td>";
+echo "<td>" . $row['death']. "</td>";
+echo "</tr>";
+
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+}
+
+?>
+    </div>
+</div>
+<div class="row">
+  <div class="col-lg-6">
+  <h3>Top Online</h3>
   <?php
-    $sql = "SELECT p.name as name, count(d.count) as death FROM stats_player p, stats_player_death d
-		where p.id = d.player and cause not in('SUICIDE')
-		group by 1
-		order by 2 desc limit 100";
 
+  //get_hours
+  function get_hours($seconds)
+  {
+  	$return = '';
+
+  	$hours = (int)($seconds / 3600);
+  	$minutes = (int)(($seconds - $hours * 3600) / 60);
+
+  	if( $hours > 0 )
+  		{
+  			$return .= $hours . 'h';
+  		}
+  	if( $minutes > 0 )
+  		{
+  		if( $hours > 0 )
+  		{
+  			$return .= ' ';
+  		}
+  		$return .= $minutes . 'm';
+  		}
+  	if( empty($return) )
+  		return '0m';
+  	else
+  		return $return;
+  }
+
+  $sql = "SELECT name, online_seconds FROM stats_player order by online_seconds desc limit 100";
   $result = $conn->query($sql);
 
-  if ($result->num_rows > 0) {
-	// output data of each row
+  // output data of each row
   	echo " <div class='table-responsive'>";
-  	echo "";
-  	echo "";
-  	echo "<table id='example2' class='display compact table table-hover table-striped results '>";
+  	echo "<table id='example3' class='table table-hover table-striped'>";
   	echo "<thead>";
   	echo "<tr>";
   	echo "<th>#</th>";
   	echo "<th>Name</th>";
-  	echo "<th>Deaths</th>";
+  	echo "<th>Total Online</th>";
   	echo "</tr>";
   	echo "</thead>";
-    echo "<tbody>";
+  	echo "<tbody>";
 
-    $counter = 1;
+  	$counter = 1;
 
-    while($row = $result->fetch_assoc()) {
+  while($row = $result->fetch_assoc()) {
 
-    $counter2 = $counter++;
+  	$counter2 = $counter++;
 
-    echo "<tr>";
-    echo "<th scope='row'>$counter2</th>";
-    echo "<td>" . $row['name']. "</td>";
-    echo "<td>" . $row['death']. "</td>";
-    echo "</tr>";
+  	echo "<tr>";
+  	echo "<th scope='row'>$counter2</th>";
+  	echo "<td>" . $row['name']. "</a></td>";
+  	echo "<td>".get_hours($row['online_seconds'])."</td>";
+  	echo "</tr>";
 
-    }
-    echo "</tbody>";
-    echo "</table>";
-    echo "</div>";
-    }
-
-?>
-        </div>
-    </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <h3>Top Online</h3>
-  					<?php
-
-  					//get_hours
-  					function get_hours($seconds)
-  					{
-  						$return = '';
-
-  						$hours = (int)($seconds / 3600);
-  						$minutes = (int)(($seconds - $hours * 3600) / 60);
-
-  						if( $hours > 0 )
-  							{
-  								$return .= $hours . 'h';
-  							}
-  						if( $minutes > 0 )
-  							{
-  							if( $hours > 0 )
-  							{
-  								$return .= ' ';
-  							}
-  							$return .= $minutes . 'm';
-  							}
-  						if( empty($return) )
-  							return '0m';
-  						else
-  							return $return;
-  					}
-
-  					$sql = "SELECT name, online_seconds FROM stats_player order by online_seconds desc limit 100";
-  					$result = $conn->query($sql);
-
-  					// output data of each row
-  						echo " <div class='table-responsive'>";
-  						echo "<table id='example3' class='table table-hover table-striped'>";
-  						echo "<thead>";
-  						echo "<tr>";
-  						echo "<th>#</th>";
-  						echo "<th>Name</th>";
-  						echo "<th>Total Online</th>";
-  						echo "</tr>";
-  						echo "</thead>";
-  						echo "<tbody>";
-
-  						$counter = 1;
-
-  					while($row = $result->fetch_assoc()) {
-
-  						$counter2 = $counter++;
-
-  						echo "<tr>";
-  						echo "<th scope='row'>$counter2</th>";
-  						echo "<td>" . $row['name']. "</a></td>";
-  						echo "<td>".get_hours($row['online_seconds'])."</td>";
-  						echo "</tr>";
-
-  					}
-  						echo "</tbody>";
-  						echo "</table>";
-  						echo "</div>";
-  						$conn->close();
-  				?>
-      </div>
+  }
+  	echo "</tbody>";
+  	echo "</table>";
+  	echo "</div>";
+  	$conn->close();
+  ?>
   </div>
+</div>
 </section>
 <script src="js/bootstrap.min.js"></script>
