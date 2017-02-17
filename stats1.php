@@ -22,7 +22,6 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
 	$TotalDeath =  $data['death'];
 
 ?>
-
 			<!-- top 1 Row
         <div class="row">
             <div class="col-lg-4 col-sm-6 text-center">
@@ -35,7 +34,6 @@ $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause 
             </div>
         </div>
         <hr>	-->
-
 		<div class=""><p><b><?php echo $server_name ?> </b></p></div>
 
 		<div class=""><pre><p><?php echo $last_reset ?></p></pre></div><br />
