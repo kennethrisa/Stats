@@ -9,8 +9,6 @@ include("apiconfig.php")
 <script src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
 <?php
 
-$sqltotalusers = "SELECT COUNT(id) as total FROM stats_player";
-
 $sqltotalkills = "select COUNT(id) as kills FROM stats_player_kill";
 
 $sqltotaldeath = "select COUNT(id) as death FROM stats_player_death where cause not in('SUICIDE','BITE')";
