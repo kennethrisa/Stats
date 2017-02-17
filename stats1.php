@@ -4,36 +4,9 @@ include("apiconfig.php")
 ?>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" rel="stylesheet">
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
-<script>
-// Disable search and ordering by default
-$.extend( $.fn.dataTable.defaults, {
-    searching: true,
-    ordering:  false,
-    pagingType: "simple",
-	bLengthChange: false
-} );
-
-$(document).ready(function() {
-    $('#example').DataTable({
-	ordering: true
-	})
-} );
-
-$(document).ready(function() {
-    $('#example2').DataTable({
-	ordering: true
-	})
-} );
-
-$(document).ready(function() {
-    $('#example3').DataTable({
-	ordering: true
-	})
-} );
-</script>
 <?php
 
 // SQL query
@@ -72,7 +45,7 @@ $TotalDeath =  $data['death'];
   </div>
   <hr>	-->
 <div class=""><p><b><?php echo $server_name ?> </b></p></div>
-<div class=""><pre><p><?php echo $last_reset ?></p></div><br />
+<div class=""><pre><p><?php echo $last_reset ?></p></pre></div><br />
 <div class="row">
   <div class="col-md-3 col-sm-6">
     <div class="card card-inverse card-success">
@@ -281,4 +254,31 @@ echo "</div>";
   </div>
 </div>
 </section>
+<script>
+// Disable search and ordering by default
+$.extend( $.fn.dataTable.defaults, {
+    searching: true,
+    ordering:  false,
+    pagingType: "simple",
+	bLengthChange: false
+} );
+
+$(document).ready(function() {
+    $('#example').DataTable({
+	ordering: true
+	})
+} );
+
+$(document).ready(function() {
+    $('#example2').DataTable({
+	ordering: true
+	})
+} );
+
+$(document).ready(function() {
+    $('#example3').DataTable({
+	ordering: true
+	})
+} );
+</script>	  
 <script src="js/bootstrap.min.js"></script>
