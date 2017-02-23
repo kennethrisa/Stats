@@ -144,9 +144,9 @@ $TotalDeath =  $data['death'];
         Death ratio
     </h3>
 <?php
-$sql = "SELECT p.name as name, count(d.count) as death FROM stats_player p, stats_player_death d
-where p.id = d.player and cause not in('SUICIDE')
-group by 1
+$sql = "SELECT p.name as name, count(k.victim) as death FROM stats_player p, stats_player_kill k
+where p.id = k.victim
+group by victim
 order by 2 desc limit 100";
 
 $result = $conn->query($sql);
