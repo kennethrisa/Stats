@@ -14,6 +14,9 @@ Im not a pro devloper, just testing and learning!
 
 See the how to section if you are not know on how to set this up.
 
+Demo: https://demo.altirust.no/
+Kenna - Altirust.no
+
 # Required:
 - Oxide
 - rust-servers.net - you need to register your server to get api key
@@ -22,8 +25,7 @@ See the how to section if you are not know on how to set this up.
 - Webserver/Nginx
 - php 5.6>
 
-Create database:
-See SQLStats.txt or section MariaDB
+Create database: See SQLStats.txt or section MariaDB
 
 Edit api-server1.php, find $url and provide your api key after key=yourKey<br>
 for rust-servers.info you only need to change to your ID
@@ -189,7 +191,3 @@ You should also consider to move your domain to Cloudflare for faster cdn and we
 You also get free ssl and auto renewal.
 
 # Template by bootstrap
-
-Demo: https://demo.altirust.no/
-
-Kenna - Altirust.no
