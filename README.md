@@ -21,7 +21,7 @@ more coming soon.
 Create database:
 See SQLStats.txt
 
-Edit stats1.php, find $url and provide your api key after key=yourKey
+Edit apiconfig.php, find $url and provide your api key after key=yourKey
 
 # Oxide plugin:
 SQLStats.cs - Add this to your plugin directory. (Some feature are removed for performance gain)
