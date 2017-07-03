@@ -29,6 +29,11 @@ SQLStats.cs - Add this to your plugin directory. (Some feature are removed for p
 Plugin is now unmaintaned: http://oxidemod.org/threads/stats-unmaintained.9849/
 Use it on your own risk.
 
+# How to:
+
+1. OS: Win 2012 r2
+Coming soon
+
 # Template by bootstrap
 
 Demo: https://altirust.no/stats
