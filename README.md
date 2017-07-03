@@ -23,9 +23,9 @@ See the how to section if you are not know on how to set this up.
 - php 5.6>
 
 Create database:
-See SQLStats.txt
+See SQLStats.txt or section MariaDB
 
-Edit api-server1.php, find $url and provide your api key after key=yourKey
+Edit api-server1.php, find $url and provide your api key after key=yourKey<br>
 for rust-servers.info you only need to change to your ID
 
 # Oxide plugin:
