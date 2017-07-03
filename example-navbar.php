@@ -22,13 +22,9 @@ include("mconfig.php");
                 <li class="hidden">
                     <a class="page-scroll" href="#page-top"></a>
                 </li>
-                <li>
-                    <a class="page-scroll" href="https://forum.altirust.no">Forum</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="https://github.com/kennethrisa/Stats/issues">Report bug</a></li>
-              <li><a href="https://github.com/kennethrisa/Stats/releases">Changelog</a></li>
+                <li><a href="?id=1">Server #1</a></li>
+                <!-- <li><a href="?id=2">Server #2</a></li> -->
+                <!-- Uncomment above if you are gonna have multiple servers -->
             </ul>
         </div>
         <!-- /.navbar-collapse -->

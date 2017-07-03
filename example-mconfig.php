@@ -1,22 +1,23 @@
 <?php
 
 // Database variables
-$servername = "0.0.0.0";
-$username = "database_user";
+$servername = "localhost";
+$port = "3306";
+$username = "root";
 $password = "password";
-$dbname = "database_name";
+$dbname = "rust";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
 // Site last reset date:
-$last_reset = "Last stats reset time: 03.02.2017";
+$srv1LastReset = "<b>Last stats reset time:</b> 03.07.2017";
+$srv2LastReset = "<b>Last stats reset time:</b> 03.07.2017";
 
-$siteName = "Altirust.no";
+$siteName = "Your Site Name";
 
 ?>
