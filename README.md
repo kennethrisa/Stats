@@ -46,11 +46,11 @@ If you are gonna use a sql server where your webserver is, make sure thats the l
 
 1. How to install mariaDB on windows<br>
 Direct Download link: https://downloads.mariadb.org/interstitial/mariadb-10.2.6/winx64-packages/mariadb-10.2.6-winx64.msi/from/http%3A//mirror.host.ag/mariadb/<br>
-1.2 Follow the step by step guide here: https://mariadb.com/kb/en/mariadb/installing-mariadb-msi-packages-on-windows/<br>
-1.3 The installer above got HeidiSQL installed, so check if HeidiSQL is installed before you try download this, if it installed, just skip this step. Download Heidi SQL (Desktop client to sql queries) or choose your fav, some use phpmyadmin.<br>
-1.4 After you have installed mariaDB and HeidiSQL client, Open heidi sql and connect to your server.(Hit start icon, and type HeidiSQL -> Enter)<br>
+2. Follow the step by step guide here: https://mariadb.com/kb/en/mariadb/installing-mariadb-msi-packages-on-windows/<br>
+3. The installer above got HeidiSQL installed, so check if HeidiSQL is installed before you try download this, if it installed, just skip this step. Download Heidi SQL (Desktop client to sql queries) or choose your fav one, some use phpmyadmin.<br>
+4. After you have installed mariaDB and HeidiSQL client, Open heidi sql and connect to your server.(Hit start icon, and type HeidiSQL -> Enter)<br>
 Choose New -> Session in root folder -> Enter localhost or your ip or 127.0.0.1 -> Enter root/password with what you entred in the setup and hit Save -> open.<br>
-1.5.Hit the Query (Blue Play button) and paste this in:<br>
+5. Hit the Query (Blue Play button) and paste this in:<br>
 ```
 CREATE TABLE `stats_player` (
   `id` bigint(20) NOT NULL,
