@@ -107,16 +107,16 @@ FLUSH PRIVILEGES;
 1. Download nginx/windows 1.13.2 (latest stable version)<br>
 Download link: http://nginx.org/en/download.html<br>
 2. Click on nginx/windows-1.13.2 - it will now download a zip. Extract this zip file and copy the files to c:\nginx<br>
-3. move nginx/start.bat/stop.bat content to c:\nginx and dobbel click on start.bat - this will start nginx, so if you restart your server, you will have to start this again.<br>
+3. move c:\git\stats\nginx\start.bat and stop.bat content to c:\nginx and dobbel click on start.bat - this will start nginx, so if you restart your server, you will have to start this again.<br>
 4. Download php 7.1.6: http://windows.php.net/downloads/releases/php-7.1.6-nts-Win32-VC14-x86.zip<br>
 5. Extract content and rename the folder to php7, move it to c: so the path is c:\php7<br>
 6. Now we need to copy a program called RunHiddenConsole to get php7 to run on port 9000.<br>
-7. Extract RunHiddenConsole in path c:\git\nginx\ and make a new dir called bin in c:\ so the path will be c:\bin\ copy the RunHiddenConsole.exe and paste it to c:\bin.<br>
-8. To get php to start we need Visual C++ 2015 redist x86, download from micrisoft: https://www.microsoft.com/en-us/download/details.aspx?id=52685 and install the package afterward.<br>
-8. Copy start-php-fcgi.bat to c:\nginx\ and dobbel tap it so it starts. this you will also need to start after a reboot of the server.<br>
-9. If you get a an error that you are missing vcruntime140.dll, you have not installed the correct one in step 8(vc_redist.x86.exe).<br>
-10. Now we need to edit the c:\nginx\conf\nginx.conf file to get it working with php7.<br>
-11. Edit: c:\nginx\conf\nginx.conf go down to line 65 and uncomment to line 71 like this:
+7. Extract RunHiddenConsole.zip in path c:\git\stats\nginx\ and make a new dir called "bin" in c:\ so the path will be c:\bin\ copy the RunHiddenConsole.exe and paste it in to c:\bin.<br>
+8. To get php to start we need Visual C++ 2015 redist x86(Not x64), download from micrisoft: https://www.microsoft.com/en-us/download/details.aspx?id=52685 and install the package afterward.<br>
+9. Copy start-php-fcgi.bat from c:\git\stats\nginx to c:\nginx\ and dobbel tap it so it starts. this you will also need to start after a reboot of the server.<br>
+10. If you get a an error that you are missing vcruntime140.dll, you have not installed the correct one in step 8(vc_redist.x86.exe).<br>
+11. Now we need to edit the c:\nginx\conf\nginx.conf file to get it working with php7.<br>
+12. Edit: c:\nginx\conf\nginx.conf go down to line 65 and uncomment to line 71 like this:
 ```
         # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
         #
@@ -130,16 +130,16 @@ Download link: http://nginx.org/en/download.html<br>
         }
 ```
 Make sure you also add the last line: include fastcgi.conf; or you can get a error like this: no input file specified<br>
-12. Now try to go to your browser and see if nginx have started successful: http://localhost/<br>
-13. If you see <h1>Welcome to nginx</h1> then the nginx is successful installed.<br>
-14. Now we need to make sure php works.
-15. create a file in c:\nginx\html\helloworld.php
+13. Now try to go to your browser and see if nginx have started successful: http://localhost/<br>
+14. If you see <h1>Welcome to nginx</h1> then the nginx is successful installed.<br>
+15. Now we need to make sure php works.<br>
+16. create a file in c:\nginx\html\helloworld.php
 ```
 <?php echo "Hello world"; ?>
 ```
 try now to browse to http://localhost/helloworld.php <br>
 If it says Hello world, than everything is now fine.<br>
-16. Now we need to add so the index.php is the default who is being loaded. Edit c:\nginx\nginx.conf<br>
+17. Now we need to add so the index.php is the default who is being loaded. Edit c:\nginx\nginx.conf<br>
 and add this to the line index.php on line 45 like so:<br>
 ```
 index  index.php index.html index.htm;
