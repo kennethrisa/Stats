@@ -4,7 +4,7 @@ Shows stats of players like KDR and online time.
 
 git clone https://github.com/kennethrisa/Stats.git
 
-reanme example-mconfig.php to mconfig.php
+rename example-mconfig.php to mconfig.php
 rename example-apiconfig.php to apiconfig.php
 
 Im not a pro devloper, just testing and learning!
@@ -24,7 +24,7 @@ See SQLStats.txt
 Edit stats1.php, find $url and provide your api key after key=yourKey
 
 # Oxide plugin:
-SQLStats.zip - Unzip this and add it to your plugin directory.
+SQLStats.cs - Add this to your plugin directory. (Some feature are removed for performance gain)
 
 Plugin is now unmaintaned: http://oxidemod.org/threads/stats-unmaintained.9849/
 Use it on your own risk.
