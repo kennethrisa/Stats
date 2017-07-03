@@ -52,7 +52,35 @@ Direct Download link: https://downloads.mariadb.org/interstitial/mariadb-10.2.6/
 Choose New -> Session in root folder -> Enter localhost or your ip or 127.0.0.1 -> Enter root/password with what you entred in the setup and hit Save -> open.<br>
 1.5.Hit the Query (Blue Play button) and paste this in:<br>
 ```
-sql
+CREATE TABLE `stats_player` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(256) CHARACTER SET utf8 NOT NULL,
+  `online_seconds` bigint(20) NOT NULL DEFAULT '0',
+  `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `online` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `stats_player_death` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `player` bigint(20) NOT NULL,
+  `cause` varchar(32) NOT NULL,
+  `date` date NOT NULL,
+  `count` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `PlayerCauseDate` (`player`,`cause`,`date`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `stats_player_kill` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `killer` bigint(20) NOT NULL,
+  `victim` bigint(20) NOT NULL,
+  `weapon` varchar(128) NOT NULL,
+  `bodypart` varchar(2000) NOT NULL DEFAULT '',
+  `date` datetime NOT NULL,
+  `distance` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 
 2. Download nginx/windows 1.13.2 (latest stable version)
