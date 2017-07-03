@@ -30,20 +30,20 @@ Plugin is now unmaintaned: http://oxidemod.org/threads/stats-unmaintained.9849/
 Use it on your own risk.
 
 # How to:
-Im gonna assume you own a dedi box, and we are gonna install all on the same machine.
+Im gonna assume you own a dedi box, and we are gonna install all on the same machine where rust server are running.
 We are gonna create a subdomain to this so you can add it to your website, like stats.yourdomain.com, this will be pointed to your dedi server.
 
 - OS: Win 2012 r2.
 - MariaDB 10.2.6 stable.
 - Nginx 1.13.2 windows with fast-cgi php7 and letsencrypt(Free) for SSL.
 
-1. How to install mariaDB on windows
-Download link: https://downloads.mariadb.org/interstitial/mariadb-10.2.6/winx64-packages/mariadb-10.2.6-winx64.msi/from/http%3A//mirror.host.ag/mariadb/
-1.2 Follow the step by step guide here: https://mariadb.com/kb/en/mariadb/installing-mariadb-msi-packages-on-windows/
-1.3 Download Heidi SQL (Desktop client to sql querys) or choose your fav, some use phpmyadmin.
-1.4 After you have installed mariaDB and HeidiSQL client, Open heidi sql and connect your server.
-Choose New -> enter localhost or your ip -> root/password and hit open.
-1.5.
+1. How to install mariaDB on windows<br>
+Download link: https://downloads.mariadb.org/interstitial/mariadb-10.2.6/winx64-packages/mariadb-10.2.6-winx64.msi/from/http%3A//mirror.host.ag/mariadb/<br>
+1.2 Follow the step by step guide here: https://mariadb.com/kb/en/mariadb/installing-mariadb-msi-packages-on-windows/<br>
+1.3 Download Heidi SQL (Desktop client to sql querys) or choose your fav, some use phpmyadmin.<br>
+1.4 After you have installed mariaDB and HeidiSQL client, Open heidi sql and connect your server.<br>
+Choose New -> enter localhost or your ip -> root/password and hit open.<br>
+1.5.<br>
 
 2. Download nginx/windows 1.13.2 (latest stable version)
 Download link: http://nginx.org/en/download.html
