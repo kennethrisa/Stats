@@ -12,7 +12,7 @@ rename example-api-server1.php to api-server1.php
 
 Im not a pro devloper, just testing and learning!
 
-See the how to section if you are not know on how to set this up.
+See the how to section for setup.
 
 Demo: https://demo.altirust.no/
 Kenna - Altirust.no
@@ -54,11 +54,11 @@ If you are gonna use a sql server where your webserver is, make sure thats the l
 1. How to install mariaDB on windows<br>
 Direct Download link: https://downloads.mariadb.org/interstitial/mariadb-10.2.6/winx64-packages/mariadb-10.2.6-winx64.msi/from/http%3A//mirror.host.ag/mariadb/<br>
 2. Follow the step by step guide here: https://mariadb.com/kb/en/mariadb/installing-mariadb-msi-packages-on-windows/<br>
-3. The installer above got HeidiSQL installed, so check if HeidiSQL is installed before you try download this, if it installed, just skip this step. Download Heidi SQL (Desktop client to sql queries) or choose your fav one, some use phpmyadmin.<br>
-4. After you have installed mariaDB and HeidiSQL client, Open heidi sql and connect to your server.(Hit start icon, and type HeidiSQL -> Enter)<br>
-Choose New -> Session in root folder -> Enter localhost or your ip or 127.0.0.1 -> Enter root/password with what you entred in the setup and hit Save -> open.<br>
+3. The installer above install's HeidiSQL, we will use this client to create database, tables and user, or choose your fav one, some use phpmyadmin.<br>
+4. After you have installed mariaDB and HeidiSQL client, Open HeidiSQL and connect to your server.(Hit start icon, and type HeidiSQL -> Enter)<br>
+Choose New -> Session in root folder -> Enter localhost or your ip -> Enter root/password with what you entred in the setup and hit Save -> open.<br>
 5. Right click on start menu and hit run, type: services.msc and see if MySQL is running. this service has to run.
-6. Hit the Query (Blue Play button) and paste this in:<br>
+6. HeidiSQL: Hit the Query (Blue Play button) and paste this in:<br>
 ```
 CREATE DATABASE rust;
 
