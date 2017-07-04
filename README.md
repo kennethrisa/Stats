@@ -95,7 +95,7 @@ CREATE TABLE `stats_player_kill` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 7. And than hit the big blue play button or F9 (Execute SQL)<br>
-Hit F5 or right click above where it says Information_schema and hit refresh.<br>
+or right click above where it says Information_schema and hit refresh.<br>
 You should now see that you have a database named rust and have 3 tables inside it.<br>
 8. Create a user:
 ```
@@ -133,7 +133,7 @@ Download link: http://nginx.org/en/download.html<br>
 ```
 Make sure you also add the last line: include fastcgi.conf; or you can get a error like this: no input file specified<br>
 13. Now try to go to your browser and see if nginx have started successful: http://localhost/<br>
-14. If you see <h1>Welcome to nginx</h1> then the nginx is successful installed.<br>
+14. If you see "Welcome to nginx", then the nginx is successful installed.<br>
 15. Now we need to make sure php works.<br>
 16. create a file in c:\nginx\html\helloworld.php
 ```
@@ -141,12 +141,12 @@ Make sure you also add the last line: include fastcgi.conf; or you can get a err
 ```
 try now to browse to http://localhost/helloworld.php <br>
 If it says Hello world, than everything is now fine.<br>
-17. Now we need to add so the index.php is the default who is being loaded. Edit c:\nginx\nginx.conf<br>
+17. Now we need to add so the index.php is the default who is being loaded. Edit c:\nginx\conf\nginx.conf<br>
 and add this to the line: index.php on line 45 like so:<br>
 ```
 index  index.php index.html index.htm;
 ```
-18. Edit the php.ini file. First we need to rename c:\php\php.ini-production to php.ini.<br>
+18. Edit the php.ini file. First we need to rename c:\php\php.ini-production to php.ini. you can also copy c:\git\stats\nginx\php.ini to c:\php\php.ini if you don't want to edit it.<br>
 19. edit the file and remove the ; on line 905 and 907 like it will be like this:
 ```
 before:
@@ -189,5 +189,6 @@ just remember to open port 80 TCP from same as you open the rust port.<br>
 
 You should also consider to move your domain to Cloudflare for faster cdn and website<br>
 You also get free ssl and auto renewal.
-
+## Hardning nginx
+More coming
 # Template by bootstrap
