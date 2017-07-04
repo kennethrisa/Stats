@@ -44,7 +44,7 @@ We are gonna create a subdomain to this so you can add it to your website, like 
 - MariaDB 10.2.6 stable.
 - Nginx 1.13.2 windows with fast-cgi php7.
 
-If you are gonna use a sql server where your webserver is, make sure thats the latency is not big, or you are gonna have performance issues.
+If you are gonna use a sql server who is not on the same server, make sure thats the latency is not big, or you are gonna have performance issues.
 
 ## Download the content
 1. Create a folder c:\git\ and go to this folder.
@@ -95,7 +95,7 @@ CREATE TABLE `stats_player_kill` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ```
 7. And than hit the big blue play button or F9 (Execute SQL)<br>
-or right click above where it says Information_schema and hit refresh.<br>
+Then right click above where it says Information_schema and hit refresh.<br>
 You should now see that you have a database named rust and have 3 tables inside it.<br>
 8. Create a user:
 ```
@@ -103,7 +103,7 @@ CREATE USER rust@'%' IDENTIFIED BY 'yourpassword';
 GRANT ALL privileges ON rust.* TO 'rust'@'%' WITH GRANT OPTION;;
 FLUSH PRIVILEGES;
 ```
-9. Try to login to the rust user and see if you have access, this is the credentials you are gonna use in the website and oxide config.<br>
+9. Try to login with the rust user and see if you have access, this is the credentials you are gonna use in the website and oxide config.<br>
 
 ## Nginx:
 1. Download nginx/windows 1.13.2 (latest stable version)<br>
