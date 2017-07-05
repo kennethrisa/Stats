@@ -1,5 +1,5 @@
 // Reference: Oxide.Ext.MySql
-// Reference: Oxide.Core.MySql 
+// Reference: Oxide.Core.MySql
 using System.Collections.Generic;
 using Oxide.Core;
 using System;
@@ -142,7 +142,62 @@ namespace Oxide.Plugins {
                 loginTime.Remove(player);
             }
         }
+        void OnDispenserGather(ResourceDispenser dispenser, BaseEntity entity, Item item) {
+            if(entity is BasePlayer) {
+                executeQuery("INSERT INTO stats_player_gather_resource (player, resource, count, date) VALUES (@0, @1, @2, @3)" +
+                        "ON DUPLICATE KEY UPDATE count = count + " + item.amount, ((BasePlayer)entity).userID, item.info.displayName.english, item.amount, getDate());
+            }
+        }
         
+        void OnCollectiblePickup(Item item, BasePlayer player) {
+            executeQuery("INSERT INTO stats_player_gather_resource (player, resource, count, date) VALUES (@0, @1, @2, @3)" +
+                        "ON DUPLICATE KEY UPDATE count = count + " + item.amount, player.userID, item.info.displayName.english, item.amount, getDate());
+        }
+        
+        void OnWeaponFired(BaseProjectile projectile, BasePlayer player, ItemModProjectile itemProjectile, ProtoBuf.ProjectileShoot projectiles)
+        {
+            string bullet = "Unknown", weapon = (player.GetActiveItem() != null ? player.GetActiveItem().info.displayName.english : "Unknown");
+            try
+            {
+                bullet = projectile.primaryMagazine.ammoType.displayName.english;
+            }
+            catch (Exception ex)
+            {
+                Puts("Problem getting bullet! " + ex.StackTrace);
+                if(projectile == null)
+                    Puts("!!!WRONG!!! projectile is NULL!");
+                else if(projectile.primaryMagazine == null)
+                    Puts("!!!WRONG!!! projectile.primaryMagazine is NULL!");
+                else if(projectile.primaryMagazine.ammoType == null)
+                    Puts("!!!WRONG!!! projectile.primaryMagazine.ammoType is NULL!");
+            }
+            executeQuery("INSERT INTO stats_player_fire_bullet (player, bullet, weapon, date) VALUES (@0, @1, @2, @3)" +
+                        "ON DUPLICATE KEY UPDATE count = count + 1", player.userID, bullet, weapon, getDate());
+        }
+        
+        void OnRocketLaunched(BasePlayer player, BaseEntity entity) {
+            string rocketName = "Unknown Rocket";
+            string prefab = entity.LookupPrefab().name.ToLower();
+            if (prefab.StartsWith("rocket_basic"))
+                rocketName = "Rocket";
+            else if (prefab.StartsWith("rocket_fire"))
+                rocketName = "Incendiary Rocket";
+            else if(prefab.StartsWith("rocket_hv"))
+                rocketName = "High Velocity Rocket";
+            executeQuery("INSERT INTO stats_player_fire_bullet (player, bullet, weapon, date) VALUES (@0, @1, @2, @3)" +
+                        "ON DUPLICATE KEY UPDATE count = count + 1", player.userID, rocketName, player.GetActiveItem().info.displayName.english, getDate());
+        }
+
+        void OnExplosiveThrown(BasePlayer player, BaseEntity entity) {
+            executeQuery("INSERT INTO stats_player_fire_bullet (player, bullet, weapon, date) VALUES (@0, @1, @2, @3)" +
+                        "ON DUPLICATE KEY UPDATE count = count + 1", player.userID, player.GetActiveItem().info.displayName.english, player.GetActiveItem().info.displayName.english, getDate());
+        }
+
+        void OnItemCraftFinished(ItemCraftTask task, Item item) {
+            executeQuery("INSERT INTO stats_player_craft_item (player, item, date, count) VALUES (@0, @1, @2, @3)"+
+                "ON DUPLICATE KEY UPDATE count = count + " + item.amount, task.owner.userID, item.info.displayName.english, getDate(), item.amount);
+        }
+
         void OnEntityDeath(BaseCombatEntity entity, HitInfo hitInfo)
         {
             if (entity.lastAttacker != null && entity.lastAttacker is BasePlayer)
@@ -158,12 +213,12 @@ namespace Oxide.Plugins {
                     catch{}
                     try
                     {
-                        //executeQuery(
-                        //    "INSERT INTO stats_player_destroy_building (player, building, date, tier, weapon) VALUES (@0, @1, @2, @3, @4)",
-                        //    ((BasePlayer) entity.lastAttacker).userID,
-                        //    ((BuildingBlock) entity).blockDefinition.info.name.english, getDateTime(),
-                        //    ((BuildingBlock) entity).currentGrade.gradeBase.name.ToUpper() + " (" +
-                        //    ((BuildingBlock) entity).MaxHealth() + ")", weapon);
+                        executeQuery(
+                           "INSERT INTO stats_player_destroy_building (player, building, date, tier, weapon) VALUES (@0, @1, @2, @3, @4)",
+                           ((BasePlayer) entity.lastAttacker).userID,
+                           ((BuildingBlock) entity).blockDefinition.info.name.english, getDateTime(),
+                           ((BuildingBlock) entity).currentGrade.gradeBase.name.ToUpper() + " (" +
+                           ((BuildingBlock) entity).MaxHealth() + ")", weapon);
                     }
                     catch (Exception ex)
                     {
@@ -189,10 +244,10 @@ namespace Oxide.Plugins {
                             distance = GetDistance(entity, (BasePlayer) entity.lastAttacker) ?? "0";
                         }
 
-                        //executeQuery(
-                        //    "INSERT INTO stats_player_animal_kill (player, animal, date, weapon, distance) VALUES (@0, @1, @2, @3, @4)",
-                        //    ((BasePlayer) entity.lastAttacker).userID,
-                        //    GetFormattedAnimal(entity.LookupShortPrefabName()), getDateTime(), weapon, distance);
+                        executeQuery(
+                           "INSERT INTO stats_player_animal_kill (player, animal, date, weapon, distance) VALUES (@0, @1, @2, @3, @4)",
+                           ((BasePlayer) entity.lastAttacker).userID,
+                           GetFormattedAnimal(entity.LookupPrefab().name), getDateTime(), weapon, distance);
                     }
                     catch (Exception ex)
                     {
@@ -296,6 +351,14 @@ namespace Oxide.Plugins {
             return bodypart;
         }
 
+        //void OnEntityBuilt(Planner planner, GameObject component) {
+        //    Vector3 pos = planner.GetOwnerPlayer().GetEstimatedWorldPosition();
+        //    string name = component.ToBaseEntity().ShortPrefabName;
+        //    if(component.ToBaseEntity() is BuildingBlock) {
+        //        name = ((BuildingBlock)component.ToBaseEntity()).blockDefinition.info.name.english;
+        //    }
+        //    executeQuery("INSERT INTO player_place_building (player, building, date) VALUES (?, ?, ?)", planner.GetOwnerPlayer().userID, name, getDate());
+        //}
     }
 
 }
