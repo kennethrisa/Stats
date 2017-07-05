@@ -33,7 +33,6 @@ namespace Oxide.Plugins {
                 return def;
             }
         }
-
         void Unloaded()
         {
             foreach (var player in BasePlayer.activePlayerList)
