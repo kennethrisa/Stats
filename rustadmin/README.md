@@ -1,4 +1,4 @@
-# PHP Example on how to get RustAdmin rcon tool to show stats on a php page.
+# PHP Example on how to get stats on a webpage from using RustAdmin rcon tool with json API.
 
 
 
