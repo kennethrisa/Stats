@@ -1,6 +1,6 @@
 # PHP Example on how to get RustAdmin rcon tool to show stats on a php page.
 
-For now you must save it as .json file
+
 
 ## Steps:
 - Open your browser, go to: http://localhost:8888/getPlayersGlobalStats
