@@ -32,6 +32,7 @@ for rust-servers.info you only need to change to your ID
 
 # Oxide plugin:
 rust_plugin/SQLStats.cs - Add this to your plugin directory. (Some feature are removed for performance gain)
+Todo: Remove SQLStats.cs support and add support for Player Ranks (http://oxidemod.org/plugins/player-ranks.2359/)
 
 Plugin is now unmaintaned: http://oxidemod.org/threads/stats-unmaintained.9849/
 Use it on your own risk.
