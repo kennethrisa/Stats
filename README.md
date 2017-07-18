@@ -1,14 +1,20 @@
 # Rust PHP Stats page
 
-Shows stats of players like KDR and online time.
+Shows stats of players like KDR and played time.
+
+18.07.2017: This is rewritten to support oxide plugin: Player Ranks
 
 git clone https://github.com/kennethrisa/Stats.git
 
+## Short Example:
 rename example-mconfig.php to mconfig.php
 rename example-api-server1.php to api-server1.php
+Edit api-server1.php, find $url and provide your api key after key=yourKey<br>
+for rust-servers.info you only need to change to your server ID
 
 - Support for multiple servers
 - Support for rust-servers.net and rust-servers.info
+- Updated oxide plugin to Player Ranks
 
 Im not a pro devloper, just testing and learning!
 
@@ -19,23 +25,16 @@ Kenna - Altirust.no
 
 # Required:
 - Oxide
+- Oxide plugin: Player Ranks
 - rust-servers.net - you need to register your server to get api key
 - rust-servers.info - you need to register your server
 - MySql/MariaDB
-- Webserver/Nginx
+- Webserver
 - php 5.6>
 
-Create database: See SQLStats.txt or section MariaDB
-
-Edit api-server1.php, find $url and provide your api key after key=yourKey<br>
-for rust-servers.info you only need to change to your ID
-
 # Oxide plugin:
-rust_plugin/SQLStats.cs - Add this to your plugin directory. (Some feature are removed for performance gain)
-Todo: Remove SQLStats.cs support and add support for Player Ranks (http://oxidemod.org/plugins/player-ranks.2359/)
-
-Plugin is now unmaintaned: http://oxidemod.org/threads/stats-unmaintained.9849/
-Use it on your own risk.
+Player Ranks (http://oxidemod.org/plugins/player-ranks.2359/)
+Se how to install on oxidemod.org
 
 # How to:
 Im gonna assume you own a dedi box, and we are gonna install all on the same machine where rust server are running.
@@ -55,56 +54,19 @@ If you are gonna use a sql server who is not on the same server, make sure thats
 1. How to install mariaDB on windows<br>
 Direct Download link: https://downloads.mariadb.org/interstitial/mariadb-10.2.6/winx64-packages/mariadb-10.2.6-winx64.msi/from/http%3A//mirror.host.ag/mariadb/<br>
 2. Follow the step by step guide here: https://mariadb.com/kb/en/mariadb/installing-mariadb-msi-packages-on-windows/<br>
-3. The installer above install's HeidiSQL, we will use this client to create database, tables and user, or choose your fav one, some use phpmyadmin.<br>
+3. The installer above install's HeidiSQL, we will use this client to create user, or choose your fav one, some use phpmyadmin.<br>
 4. After you have installed mariaDB and HeidiSQL client, Open HeidiSQL and connect to your server.(Hit start icon, and type HeidiSQL -> Enter)<br>
 Choose New -> Session in root folder -> Enter localhost or your ip -> Enter root/password with what you entred in the setup and hit Save -> open.<br>
 5. Right click on start menu and hit run, type: services.msc and see if MySQL is running. this service has to run.
-6. HeidiSQL: Hit the Query (Blue Play button) and paste this in:<br>
+6. HeidiSQL: Hit the Query (Blue Play button) and paste this in, so we can create the database as rust and sql user as rust :<br>
 ```
 CREATE DATABASE rust;
 
-USE rust;
-
-CREATE TABLE `stats_player` (
-  `id` bigint(20) NOT NULL,
-  `name` varchar(256) CHARACTER SET utf8 NOT NULL,
-  `online_seconds` bigint(20) NOT NULL DEFAULT '0',
-  `ip` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `online` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-CREATE TABLE `stats_player_death` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `player` bigint(20) NOT NULL,
-  `cause` varchar(32) NOT NULL,
-  `date` date NOT NULL,
-  `count` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `PlayerCauseDate` (`player`,`cause`,`date`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-CREATE TABLE `stats_player_kill` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `killer` bigint(20) NOT NULL,
-  `victim` bigint(20) NOT NULL,
-  `weapon` varchar(128) NOT NULL,
-  `bodypart` varchar(2000) NOT NULL DEFAULT '',
-  `date` datetime NOT NULL,
-  `distance` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-```
-7. And than hit the big blue play button or F9 (Execute SQL)<br>
-Then right click above where it says Information_schema and hit refresh.<br>
-You should now see that you have a database named rust and have 3 tables inside it.<br>
-8. Create a user:
-```
 CREATE USER rust@'%' IDENTIFIED BY 'yourpassword';
 GRANT ALL privileges ON rust.* TO 'rust'@'%' WITH GRANT OPTION;;
 FLUSH PRIVILEGES;
 ```
-9. Try to login with the rust user and see if you have access, this is the credentials you are gonna use in the website and oxide config.<br>
+7. Try to login with the rust user and see if you have access (re-run step 4, just with rust user), this is the credentials you are gonna use in the website and oxide config.<br>
 
 ## Nginx:
 1. Download nginx/windows 1.13.2 (latest stable version)<br>
@@ -168,28 +130,29 @@ extension=php_openssl.dll
 6. Edit api-server1.php and fill inn your rust-server.net api key and rust-servers.info server ID.<br>
 7. Now browse to http://localhost/ and you should see you get info from rust-servers.info and rust-servers.net<br>
 
-## Rust plugin SQLStats.cs
-1. Now copy c:\git\stats\rust_plugin\SQLStats.cs into your rust plugin folder.<br>
-2. you should now edit the file config\SQLStats.json and fill inn the database information like below<br>
+## Rust plugin PlayerRanks.cs
+1. Get latest update from http://oxidemod.org/plugins/player-ranks.2359/ and add it into your rust plugin folder.<br>
+2. you should now edit the file oxide\config\PlayerRanks.json and fill inn the database information like below<br>
 ```
-{
-  "dbConnection": {
-    "Database": "rust",
-    "Host": "localhost",
-    "Password": "password",
-    "Port": 3306,
-    "Username": "rust"
-  }
-}
+"MySQL - Database Name": "rust",
+"MySQL - Host": "localhost",
+"MySQL - Password": "your password",
+"MySQL - Port": 3306,
+"MySQL - Table Name": "playerranksdb",
+"MySQL - Use MySQL": true,
+"MySQL - Username": "rust",
 ```
-3. Now it should push the data to the SQL database server.
+3. Go into rust console and type reload PlayerRanks - this plugin will auto create the sql tables.
+4. Wait 15 min and it should save the data to the SQL database server, or run this console command: playerranks.save
 
 ## Subdomain
 I have no idea what hosting company you use, but you should now just create a "A Record" stats.yourdomain.com and point it to your external IP<br>
-just remember to open port 80 TCP from same as you open the rust port.<br>
+just remember to open port 80/443 TCP from same as you open the rust port.<br>
 
 You should also consider to move your domain to Cloudflare for faster cdn and website<br>
 You also get free ssl and auto renewal.
 ## Hardning nginx
 More coming
 # Template by bootstrap
+# Credits
+The man who made this rust plugin: Oxide user: =BBUK= Steenamaroo

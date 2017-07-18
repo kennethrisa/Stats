@@ -27,53 +27,49 @@ function cache_output( $content ) {
 }
 ?>
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="//cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
 <?php
-include("../mconfig.php");
+include("mconfig.php");
 include("api/api-server1.php");
 ?>
 <?php
 
-$sqlTopWeapon = "SELECT weapon, count(weapon) as total FROM stats_player_kill
-group BY weapon
-order by 2 desc
-limit 1";
+$sqlTopHeli = "SELECT Name, HeliKills FROM playerranksdb
+where HeliKills > 0
+ORDER BY HeliKills desc limit 1";
 
-$sqlTopBodypart = "SELECT bodypart, count(bodypart) as total FROM stats_player_kill
-group BY bodypart
-order by 2 desc
-limit 1";
+$sqlTopHeliHits = "SELECT Name, HeliHits FROM playerranksdb
+where HeliHits > 0
+ORDER BY HeliHits desc limit 1";
 
-$sqlTopPlayerAndWeapon = "select p.name as name, k.weapon, count(k.weapon) as weapontotal FROM stats_player p, stats_player_kill k
-where p.id = k.killer
-group BY k.weapon, p.name
-order by 3 desc
-limit 1";
+$sqlTopStructuresBuilt = "SELECT Name, StructuresBuilt FROM playerranksdb
+ORDER BY StructuresBuilt desc limit 1";
 
-$sqlTopOnline = "SELECT name FROM stats_player order by online_seconds desc limit 1";
+$sqlTopOnline = "SELECT Name, TimePlayed FROM playerranksdb
+ORDER BY TimePlayed desc limit 1";
 
-$result = $conn->query($sqlTopWeapon);
+$result = $conn->query($sqlTopHeli);
 $data = $result->fetch_assoc();
-$weapon =  $data['weapon'];
-$weapontotal =  $data['total'];
+$heliPlayer =  $data['Name'];
+$heliTotalKills =  $data['HeliKills'];
 
-$result = $conn->query($sqlTopBodypart);
+$result = $conn->query($sqlTopHeliHits);
 $data = $result->fetch_assoc();
-$bodypart =  $data['bodypart'];
-$bodyparttotal =  $data['total'];
+$heliHitsName =  $data['Name'];
+$heliHitsTotal =  $data['HeliHits'];
 
-$result = $conn->query($sqlTopPlayerAndWeapon);
+$result = $conn->query($sqlTopStructuresBuilt);
 $data = $result->fetch_assoc();
-$pname =  $data['name'];
-$pweapon =  $data['weapon'];
-$pweapontotal =  $data['weapontotal'];
+$pname =  $data['Name'];
+$StructuresBuilt =  $data['StructuresBuilt'];
 
 $result = $conn->query($sqlTopOnline);
 $data = $result->fetch_assoc();
-$toponline =  $data['name'];
+$timePlayedName =  $data['Name'];
+$timePlayeTotal =  $data['TimePlayed'];
 
 ?>
 
@@ -137,8 +133,8 @@ $toponline =  $data['name'];
                       <div class="rotate">
                           <i class="fa fa-user fa-5x"></i>
                       </div>
-                      <h6 class="text-uppercase">Top weapon</h6>
-				<h4 class="display-6"><?php echo $weapon; echo " <span class='badge' title='Total amount kills with this weapon'>$weapontotal</span>"; ?></h4>
+                      <h6 class="text-uppercase">Top heli-kills</h6>
+				<h4 class="display-6"><?php if ($heliTotalKills < "1") { echo "No data";} else { echo $heliPlayer; echo " <span class='badge' title='Total amount kills with this weapon'>$heliTotalKills</span>"; }?></h4>
                   </div>
               </div>
           </div>
@@ -148,8 +144,8 @@ $toponline =  $data['name'];
                       <div class="rotate">
                           <i class="fa fa-list fa-5x"></i>
                       </div><!-- Total users in database -->
-                      <h6 class="text-uppercase">Top bodypart hits</h6>
-				<h4 class="display-6"><?php echo $bodypart; echo " <span class='badge' title='Where players have most hits'>$bodyparttotal</span>"; ?></h4>
+                      <h6 class="text-uppercase">Top heli-hits</h6>
+				<h4 class="display-6"><?php if ($heliHitsTotal < "1") { echo "No data";} else { echo $heliHitsName; echo " <span class='badge' title='Where players have most hits'>$heliHitsTotal</span>"; }?></h4>
                   </div>
               </div>
           </div>
@@ -159,8 +155,8 @@ $toponline =  $data['name'];
                       <div class="rotate">
                           <i class="fa fa-deviantart fa-5x"></i>
                       </div>
-                      <h6 class="text-uppercase">Top player with top weapon used</h6>
-                      <h4 class="display-6"><?php echo $pname; echo '<br>'; echo $pweapon; echo " <span class='badge' title='Total amount of kills with this weapon'>$pweapontotal</span>"; ?></h4>
+                      <h6 class="text-uppercase">Top StructuresBuilt</h6>
+                      <h4 class="display-6"><?php echo $pname; echo '<br>'; echo " <span class='badge' title='Total amount of kills with this weapon'>$StructuresBuilt</span>"; ?></h4>
                   </div>
               </div>
           </div>
@@ -170,8 +166,8 @@ $toponline =  $data['name'];
                       <div class="rotate">
                           <i class="fa fa-share fa-5x"></i>
                       </div>
-                      <h6 class="text-uppercase">Top Online</h6>
-                      <h4 class="display-7"><?php echo $toponline; ?></h4>
+                      <h6 class="text-uppercase">Top time played</h6>
+                      <h4 class="display-7"><?php echo $timePlayedName; echo " <span class='badge' title='Total amount of time played'>$timePlayeTotal</span>"; ?></h4>
                   </div>
               </div>
           </div>
@@ -182,10 +178,8 @@ $toponline =  $data['name'];
     <div class="col-lg-6">
         <h3>Kill ratio</h3>
 <?php
-$sql = "SELECT p.name as name, count(k.killer) as killer FROM stats_player p, stats_player_kill k
-where p.id = k.killer
-group by killer
-order by 2 desc limit 100";
+$sql = "SELECT Name, PVPKills, KDR, Status FROM playerranksdb
+ORDER BY 2 desc limit 100";
 
 $result = $conn->query($sql);
 
@@ -199,7 +193,8 @@ echo "<thead>";
 echo "<tr>";
 echo "<th>#</th>";
 echo "<th>Name</th>";
-echo "<th>Kills</th>";
+echo "<th>PVPKills</th>";
+echo "<th>KDR</th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -212,8 +207,9 @@ $counter2 = $counter++;
 
 echo "<tr>";
 echo "<th scope='row'>$counter2</th>";
-echo "<td>" . $row['name']. "</td>";
-echo "<td>" . $row['killer']. "</td>";
+echo "<td>" . $row['Name']. "</td>";
+echo "<td>" . $row['PVPKills']. "</td>";
+echo "<td>" . $row['KDR']. "</td>";
 echo "</tr>";
 
 }
@@ -229,10 +225,8 @@ echo "</div>";
         Death ratio
     </h3>
     <?php
-$sql = "SELECT p.name as name, count(k.victim) as death FROM stats_player p, stats_player_kill k
-		where p.id = k.victim
-		group by victim
-		order by 2 desc limit 100";
+$sql = "SELECT Name, Deaths, SDR, Status FROM playerranksdb
+ORDER BY 2 desc limit 100";
 
 $result = $conn->query($sql);
 
@@ -247,6 +241,7 @@ echo "<tr>";
 echo "<th>#</th>";
 echo "<th>Name</th>";
 echo "<th>Deaths</th>";
+echo "<th>SDR</th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -259,8 +254,9 @@ $counter2 = $counter++;
 
 echo "<tr>";
 echo "<th scope='row'>$counter2</th>";
-echo "<td>" . $row['name']. "</td>";
-echo "<td>" . $row['death']. "</td>";
+echo "<td>" . $row['Name']. "</td>";
+echo "<td>" . $row['Deaths']. "</td>";
+echo "<td>" . $row['SDR']. "</td>";
 echo "</tr>";
 
 }
@@ -276,36 +272,13 @@ echo "</div>";
 
 <div class="row">
     <div class="col-lg-6">
-        <h3>Top Online</h3>
+        <h3>Time Played</h3>
 <?php
 
-//get_hours
-function get_hours($seconds)
-{
-$return = '';
 
-$hours = (int)($seconds / 3600);
-$minutes = (int)(($seconds - $hours * 3600) / 60);
 
-if( $hours > 0 )
-	{
-		$return .= $hours . 'h';
-	}
-if( $minutes > 0 )
-	{
-	if( $hours > 0 )
-	{
-		$return .= ' ';
-	}
-	$return .= $minutes . 'm';
-	}
-if( empty($return) )
-	return '0m';
-else
-	return $return;
-}
-
-$sql = "SELECT name, online_seconds FROM stats_player order by online_seconds desc limit 100";
+$sql = "SELECT Name, TimePlayed, Status FROM playerranksdb
+ORDER BY 2 desc limit 100";
 $result = $conn->query($sql);
 
 // output data of each row
@@ -315,7 +288,8 @@ echo "<thead>";
 echo "<tr>";
 echo "<th>#</th>";
 echo "<th>Name</th>";
-echo "<th>Total Online</th>";
+echo "<th>Time Played</th>";
+echo "<th>Status</th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
@@ -329,8 +303,9 @@ $counter2 = $counter++;
 
 echo "<tr>";
 echo "<th scope='row'>$counter2</th>";
-echo "<td>" . $row['name']. "</a></td>";
-echo "<td>".get_hours($row['online_seconds'])."</td>";
+echo "<td>" . $row['Name']. "</a></td>";
+echo "<td>".$row['TimePlayed']."</td>";
+echo "<td>".$row['Status']."</td>";
 echo "</tr>";
 
 
