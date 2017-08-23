@@ -33,7 +33,7 @@ function cache_output( $content ) {
 <script src="//cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
 <?php
 include("mconfig.php");
-include("api/api-server2.php");
+include("api/api-server1.php");
 ?>
 <?php
 
@@ -178,8 +178,8 @@ $timePlayeTotal =  $data['TimePlayed'];
     <div class="col-lg-6">
         <h3>Kill ratio</h3>
 <?php
-$sql = "SELECT Name, PVPKills, KDR, Status FROM playerranksdb2
-ORDER BY 2 desc limit 100";
+$sql = "SELECT `UserID`,`Name`,`PVPKills`,`KDR`,`Status` FROM playerranksdb2
+ORDER BY 3 desc limit 100";
 
 $result = $conn->query($sql);
 
@@ -207,7 +207,7 @@ $counter2 = $counter++;
 
 echo "<tr>";
 echo "<th scope='row'>$counter2</th>";
-echo "<td>" . $row['Name']. "</td>";
+echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
 echo "<td>" . $row['PVPKills']. "</td>";
 echo "<td>" . $row['KDR']. "</td>";
 echo "</tr>";
@@ -225,8 +225,8 @@ echo "</div>";
         Death ratio
     </h3>
     <?php
-$sql = "SELECT Name, Deaths, SDR, Status FROM playerranksdb2
-ORDER BY 2 desc limit 100";
+$sql = "SELECT `UserID`,`Name`, `Deaths`, `SDR`, `Status` FROM playerranksdb2
+ORDER BY 3 desc limit 100";
 
 $result = $conn->query($sql);
 
@@ -254,7 +254,7 @@ $counter2 = $counter++;
 
 echo "<tr>";
 echo "<th scope='row'>$counter2</th>";
-echo "<td>" . $row['Name']. "</td>";
+echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
 echo "<td>" . $row['Deaths']. "</td>";
 echo "<td>" . $row['SDR']. "</td>";
 echo "</tr>";
@@ -271,14 +271,59 @@ echo "</div>";
 
 
 <div class="row">
+  <div class="col-lg-6">
+      <h3>
+          StructuresBuilt
+      </h3>
+      <?php
+  $sql = "SELECT `UserID`, `Name`, `StructuresBuilt` FROM playerranksdb2
+  ORDER BY 3 desc limit 100";
+
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+  // output data of each row
+  echo " <div class='table-responsive'>";
+  echo "";
+  echo "";
+  echo "<table id='StructuresBuilt' class='display compact table table-hover table-striped results '>";
+  echo "<thead>";
+  echo "<tr>";
+  echo "<th>#</th>";
+  echo "<th>Name</th>";
+  echo "<th>StructuresBuilt</th>";
+  echo "</tr>";
+  echo "</thead>";
+  echo "<tbody>";
+
+  $counter = 1;
+
+  while($row = $result->fetch_assoc()) {
+
+  $counter2 = $counter++;
+
+  echo "<tr>";
+  echo "<th scope='row'>$counter2</th>";
+  echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
+  echo "<td>" . $row['StructuresBuilt']. "</td>";
+  echo "</tr>";
+
+  }
+  echo "</tbody>";
+  echo "</table>";
+  echo "</div>";
+  }
+
+  ?>
+  </div>
+  <!-- end top StructuresBuilt -->
+
     <div class="col-lg-6">
         <h3>Time Played</h3>
 <?php
 
-
-
-$sql = "SELECT Name, TimePlayed, Status FROM playerranksdb2
-ORDER BY 2 desc limit 100";
+$sql = "SELECT `UserID`,`Name`, `TimePlayed`, `Status` FROM playerranksdb2
+ORDER BY 3 desc limit 100";
 $result = $conn->query($sql);
 
 // output data of each row
@@ -302,10 +347,10 @@ while($row = $result->fetch_assoc()) {
 $counter2 = $counter++;
 
 echo "<tr>";
-echo "<th scope='row'>$counter2</th>";
-echo "<td>" . $row['Name']. "</a></td>";
-echo "<td>".$row['TimePlayed']."</td>";
-echo "<td>".$row['Status']."</td>";
+if ($row['Status'] == 'online'){ echo "<th class='success' scope='row'>$counter2</th>"; } else { echo "<th scope='row'>$counter2</th>"; }
+if ($row['Status'] == 'online'){ echo "<td class='success'><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</a></td>"; } else { echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</a></td>"; }
+if ($row['Status'] == 'online'){ echo "<td class='success'>".$row['TimePlayed']."</td>"; } else { echo "<td>".$row['TimePlayed']."</td>"; }
+if ($row['Status'] == 'online'){ echo "<td class='success'>".$row['Status']."</td>"; } else { echo "<td>".$row['Status']."</td>"; }
 echo "</tr>";
 
 
@@ -314,11 +359,69 @@ echo "</tr>";
 echo "</tbody>";
 echo "</table>";
 echo "</div>";
-$conn->close();
+
 ?>
-    </div>
+  </div>
 </div>
 
+<div class="row">
+  <div class="col-lg-12">
+      <h3>
+          Top
+      </h3>
+      <?php
+  $sql = "SELECT `UserID`,`Name`,`TimesWounded`,`ExplosivesThrown`,`ArrowsFired`,`BulletsFired`,`RocketsLaunched`,`TimesHealed` FROM playerranksdb2
+  ORDER BY TimePlayed desc limit 100";
+
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+  // output data of each row
+  echo " <div class='table-responsive'>";
+  echo "";
+  echo "";
+  echo "<table id='example4' class='display compact table table-hover table-striped results '>";
+  echo "<thead>";
+  echo "<tr>";
+  echo "<th>#</th>";
+  echo "<th>Name</th>";
+  echo "<th>TimesWounded</th>";
+  echo "<th>ExplosivesThrown</th>";
+  echo "<th>ArrowsFired</th>";
+  echo "<th>BulletsFired</th>";
+  echo "<th>RocketsLaunched</th>";
+  echo "<th>TimesHealed</th>";
+  echo "</tr>";
+  echo "</thead>";
+  echo "<tbody>";
+
+  $counter = 1;
+
+  while($row = $result->fetch_assoc()) {
+
+  $counter2 = $counter++;
+
+  echo "<tr>";
+  echo "<th scope='row'>$counter2</th>";
+  echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
+  echo "<td>" . $row['TimesWounded']. "</td>";
+  echo "<td>" . $row['ExplosivesThrown']. "</td>";
+  echo "<td>" . $row['ArrowsFired']. "</td>";
+  echo "<td>" . $row['BulletsFired']. "</td>";
+  echo "<td>" . $row['RocketsLaunched']. "</td>";
+  echo "<td>" . $row['TimesHealed']. "</td>";
+  echo "</tr>";
+
+  }
+  echo "</tbody>";
+  echo "</table>";
+  echo "</div>";
+  }
+$conn->close();
+  ?>
+</div>
+</div>
+  <!-- end row -->
 <script>
 // Disable search and ordering by default
 $.extend( $.fn.dataTable.defaults, {
@@ -342,6 +445,23 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#example3').DataTable({
+	ordering: true
+	})
+} );
+
+$(document).ready(function() {
+    $('#StructuresBuilt').DataTable({
+	ordering: true
+	})
+} );
+
+$(document).ready(function() {
+    $('#example4').DataTable({
+	ordering: true
+	})
+} );
+$(document).ready(function() {
+    $('#example5').DataTable({
 	ordering: true
 	})
 } );
