@@ -271,53 +271,6 @@ echo "</div>";
 
 
 <div class="row">
-  <div class="col-lg-6">
-      <h3>
-          StructuresBuilt
-      </h3>
-      <?php
-  $sql = "SELECT `UserID`, `Name`, `StructuresBuilt` FROM playerranksdb
-  ORDER BY 3 desc limit 100";
-
-  $result = $conn->query($sql);
-
-  if ($result->num_rows > 0) {
-  // output data of each row
-  echo " <div class='table-responsive'>";
-  echo "";
-  echo "";
-  echo "<table id='StructuresBuilt' class='display compact table table-hover table-striped results '>";
-  echo "<thead>";
-  echo "<tr>";
-  echo "<th>#</th>";
-  echo "<th>Name</th>";
-  echo "<th>StructuresBuilt</th>";
-  echo "</tr>";
-  echo "</thead>";
-  echo "<tbody>";
-
-  $counter = 1;
-
-  while($row = $result->fetch_assoc()) {
-
-  $counter2 = $counter++;
-
-  echo "<tr>";
-  echo "<th scope='row'>$counter2</th>";
-  echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
-  echo "<td>" . $row['StructuresBuilt']. "</td>";
-  echo "</tr>";
-
-  }
-  echo "</tbody>";
-  echo "</table>";
-  echo "</div>";
-  }
-
-  ?>
-  </div>
-  <!-- end top StructuresBuilt -->
-
     <div class="col-lg-6">
         <h3>Time Played</h3>
 <?php
@@ -362,6 +315,54 @@ echo "</div>";
 
 ?>
   </div>
+  <div class="col-lg-6">
+      <h3>
+          Structures
+      </h3>
+      <?php
+  $sql = "SELECT `UserID`,`Name`,`StructuresBuilt`,`StructuresUpgraded` FROM playerranksdb
+  ORDER BY 3 desc limit 100";
+
+  $result = $conn->query($sql);
+
+  if ($result->num_rows > 0) {
+  // output data of each row
+  echo " <div class='table-responsive'>";
+  echo "";
+  echo "";
+  echo "<table id='StructuresBuilt' class='display compact table table-hover table-striped results '>";
+  echo "<thead>";
+  echo "<tr>";
+  echo "<th>#</th>";
+  echo "<th>Name</th>";
+  echo "<th>Built</th>";
+  echo "<th>Upgraded</th>";
+  echo "</tr>";
+  echo "</thead>";
+  echo "<tbody>";
+
+  $counter = 1;
+
+  while($row = $result->fetch_assoc()) {
+
+  $counter2 = $counter++;
+
+  echo "<tr>";
+  echo "<th scope='row'>$counter2</th>";
+  echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
+  echo "<td>" . $row['StructuresBuilt']. "</td>";
+  echo "<td>" . $row['StructuresUpgraded']. "</td>";
+  echo "</tr>";
+
+  }
+  echo "</tbody>";
+  echo "</table>";
+  echo "</div>";
+  }
+
+  ?>
+  </div>
+  <!-- end top StructuresBuilt -->
 </div>
 
 <div class="row">
