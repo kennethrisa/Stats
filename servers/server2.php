@@ -73,7 +73,7 @@ $timePlayeTotal =  $data['TimePlayed'];
 
 ?>
 
-<div class=""><p><b><?php echo $server_name ?> </b></p></div>
+<div class=""><p><b><img src="https://via.placeholder.com/350x150" alt="Your logo here" class="img-rounded"> </b></p></div>
 
 <div class=""><pre><p><?php echo $srv1LastReset ?></p></pre></div><br />
 

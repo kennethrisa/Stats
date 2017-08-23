@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Altirust.no - Stats</title>
+    <title>Stats</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -44,7 +44,7 @@
     <div class="col-lg-12">
       <hr><br>
         <p class="pull-right"><a href="#page-top"><i class="fa fa-angle-double-up fa-2x" title="Back to top"></i></a></p>
-        <p class="text-center">2017 &middot; <a href="#">Altirust.no</a> &middot; <a href="https://github.com/kennethrisa/Stats">Want this on your site? check our github</a></p>
+        <p class="text-center">2017 &middot; <a href="#">Altirust.no</a> &middot; <a href="https://github.com/kennethrisa/Stats">Want this on your site? check out Altirust.no Github</a></p>
     </div>
   </div>
     <!-- /.row -->
