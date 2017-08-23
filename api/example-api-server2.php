@@ -21,7 +21,7 @@ $json_info = file_get_contents($url_info);
 $json_info_data = json_decode($json_info, true);
 
 $server_entities = $json_info_data['entities'];
-// $server_rank = $json_data["rating"]; // uncomment this if you want to only use rust-servers.info
+// $server_rank = $json_info_data["rating"]; // uncomment this if you want to only use rust-servers.info
 // End info api
 
 // status api - to get uptime
@@ -30,8 +30,8 @@ $json_status = file_get_contents($url_status);
 $json_status_data = json_decode($json_status, true);
 
 $server_uptime = $json_status_data["uptime"];
-// $server_name = $json_data["name"]; // uncomment this if you want to only use rust-servers.info
-// $server_players = $json_data["players"]; // uncomment this if you want to only use rust-servers.info
+// $server_name = $json_status_data["name"]; // uncomment this if you want to only use rust-servers.info
+// $server_players = $json_status_data["players"]; // uncomment this if you want to only use rust-servers.info
 // End status api
 
 ?>
