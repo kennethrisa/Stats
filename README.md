@@ -7,8 +7,8 @@ Shows stats of players like KDR and played time.
 git clone https://github.com/kennethrisa/Stats.git
 
 ## Short Example:
-rename example-mconfig.php to mconfig.php and fill in your mysql credentials.
-rename example-api-server1.php to api-server1.php
+rename example-mconfig.php to mconfig.php and fill in your mysql credentials.<br>
+rename example-api-server1.php to api-server1.php<br>
 Edit api-server1.php, find $url and provide your api key after key=yourKey<br>
 for rust-servers.info you only need to change to your server ID.
 
