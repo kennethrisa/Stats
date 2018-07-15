@@ -2,14 +2,15 @@
 
 Shows stats of players like KDR and played time.
 
-18.07.2017: This is rewritten to support oxide plugin: Player Ranks
+18.07.2017: This is rewritten to support oxide plugin: Player Ranks.<br>
 15.07.2017: Updated to support clans leaderboard.
 
 git clone https://github.com/kennethrisa/Stats.git
 
 ## Short Example:
 Rename example-mconfig.php to mconfig.php and fill in your mysql credentials.<br>
-Rename example-api-server1.php to api-server1.php.<br>
+Rename example-navbar.php to navbar.php.<br>
+Rename api/example-api-server1.php to api-server1.php.<br>
 Edit api-server1.php, find $url and provide your api key after key=yourKey.<br>
 For rust-servers.info you only need to change to your server ID.
 
