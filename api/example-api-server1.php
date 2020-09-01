@@ -1,5 +1,31 @@
 <?php
 
+// Added battlemetrics support
+// uncomment the lines that you need for battlemetrics
+// this function coverts seconds to time based on time gotten from battlemetrics
+// replace line 111 in your server1.php / server2.php files
+/* <h1 class="display-4"><?php echo $server_uptime; ?></h1> */
+// with 
+/* <h1 class="display-6"><?php echo secondsToTime($server_uptime); ?></h1> */
+function secondsToTime($server_uptime) {
+$dtF = new \DateTime('@0');
+$dtT = new \DateTime("@$server_uptime");
+return $dtF->diff($dtT)->format('%ad %hh %imin.');
+}
+
+$url_battle = "https://api.battlemetrics.com/servers/6324892"; //Replace 6324892 with your battlemetrics server ID
+$json_battle = file_get_contents($url_battle);
+$json_data_battle = json_decode($json_battle, true);
+
+//$server_name = $json_data_battle["data"]["attributes"]["name"];
+//$server_players = $json_data_battle["data"]["attributes"]["players"];
+//$server_max_players = $json_data_battle["data"]["attributes"]["maxPlayers"];
+//$server_rank = $json_data_battle["data"]["attributes"]["rank"];
+//$server_entities = $json_data_battle["data"]["attributes"]["details"]["rust_ent_cnt_i"];
+//$server_uptime = $json_data_battle["data"]["attributes"]["details"]["rust_uptime"]; 
+
+
+
 // rust-servers.net api details
 // Remember to add your API key in the end of the $url after =
 // this is my main to get name, players and rank.
