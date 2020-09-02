@@ -8,14 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" 
+      type="image/png" 
+      href="https://imgur.com/ZIx4PuP.png"> <!-- Your Favicon here -->
 
-    <title>Stats</title>
+    <title>Your-Website-Here - Player Statistics</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto:wght@100&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="css/mycustom.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,7 +38,7 @@
 <?php include("navbar.php"); ?>
 
 <!-- Page Content -->
-<section id="intro" class="intro-section">
+<section id="intro" class="intro-section background">
   <div class="container">
 
 <!-- Intro Section -->
@@ -44,7 +49,7 @@
     <div class="col-lg-12">
       <hr><br>
         <p class="pull-right"><a href="#page-top"><i class="fa fa-angle-double-up fa-2x" title="Back to top"></i></a></p>
-        <p class="text-center">2017 &middot; <a href="#">Altirust.no</a> &middot; <a href="https://github.com/kennethrisa/Stats">Want this on your site? check out Altirust.no Github</a></p>
+        <p class="text-center">2020 &middot; <a href="/">https://your-website-here.com</a> &middot;</p>
     </div>
   </div>
     <!-- /.row -->
