@@ -27,168 +27,247 @@ function cache_output( $content ) {
 }
 ?>
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="//cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" rel="stylesheet">
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
-<script src="//cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
-<?php
+    <link href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+        <?php
 include("mconfig.php");
-include("api/api-server1.php");
+include("api/api-server2.php");
 ?>
 <?php
 
-$sqlTopHeli = "SELECT Name, HeliKills FROM playerranksdb2
+// SQLStats Support from ChaosCode.io
+// Count animals being killed as PlayerRanks does not support this data
+// Remove lines 44,79,206 and 252 to use 
+
+/*
+$sqlBoars = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'BOAR'";
+
+$sqlBears = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'BEAR'";
+
+$sqlStags = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'STAG'";
+
+$sqlWolves = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'WOLF'";
+
+$sqlChicken = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'CHICKEN'";
+
+$result = $conn_sql_stats_2->query($sqlBoars);
+$data = $result->fetch_assoc();
+$BoarsKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_2->query($sqlBears);
+$data = $result->fetch_assoc();
+$BearsKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_2->query($sqlStags);
+$data = $result->fetch_assoc();
+$StagsKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_2->query($sqlWolves);
+$data = $result->fetch_assoc();
+$WolvesKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_2->query($sqlChicken);
+$data = $result->fetch_assoc();
+$ChickensKilled =  $data['COUNT(animal)'];
+*/
+// END SQL Stats
+
+// Start Playerranks 
+$sqlTopHeli = "SELECT Name, HeliKills FROM playerranksdb
 where HeliKills > 0
 ORDER BY HeliKills desc limit 1";
 
-$sqlTopHeliHits = "SELECT Name, HeliHits FROM playerranksdb2
+$sqlTopHeliHits = "SELECT Name, HeliHits FROM playerranksdb
 where HeliHits > 0
 ORDER BY HeliHits desc limit 1";
 
-$sqlTopStructuresBuilt = "SELECT Name, StructuresBuilt FROM playerranksdb2
+$sqlTopStructuresBuilt = "SELECT Name, StructuresBuilt FROM playerranksdb
 ORDER BY StructuresBuilt desc limit 1";
 
-$sqlTopOnline = "SELECT Name, TimePlayed FROM playerranksdb2
+$sqlTopOnline = "SELECT Name, TimePlayed FROM playerranksdb
 ORDER BY TimePlayed desc limit 1";
 
-$result = $conn->query($sqlTopHeli);
+$result = $conn_ply_rnk_2->query($sqlTopHeli);
 $data = $result->fetch_assoc();
 $heliPlayer =  $data['Name'];
 $heliTotalKills =  $data['HeliKills'];
 
-$result = $conn->query($sqlTopHeliHits);
+$result = $conn_ply_rnk_2->query($sqlTopHeliHits);
 $data = $result->fetch_assoc();
 $heliHitsName =  $data['Name'];
 $heliHitsTotal =  $data['HeliHits'];
 
-$result = $conn->query($sqlTopStructuresBuilt);
+$result = $conn_ply_rnk_2->query($sqlTopStructuresBuilt);
 $data = $result->fetch_assoc();
 $pname =  $data['Name'];
 $StructuresBuilt =  $data['StructuresBuilt'];
 
-$result = $conn->query($sqlTopOnline);
+$result = $conn_ply_rnk_2->query($sqlTopOnline);
 $data = $result->fetch_assoc();
 $timePlayedName =  $data['Name'];
-$timePlayeTotal =  $data['TimePlayed'];
+$timePlayedTotal =  $data['TimePlayed'];
 
 ?>
+        
+            <div class="row start">
+            <div class=""><pre><p><?php echo $srv2LastReset ?></p></pre></div><br />
+            <!-- Start banner from rust-servers.info -->
 
-<div class=""><p><b><img src="https://via.placeholder.com/350x150" alt="Your logo here" class="img-rounded"> </b></p></div>
+            <!-- Insert Rust-servers.info banner here-->
 
-<div class=""><pre><p><?php echo $srv1LastReset ?></p></pre></div><br />
-
-<!-- row 1 -->
-<div class="row">
-    <div class="col-md-3 col-sm-6">
-        <div class="card card-inverse card-success">
-            <div class="card-block bg-success">
-                <div class="rotate">
-                    <i class="fa fa-user fa-5x"></i>
+            <!-- END banner from rust-servers.info -->
+            <!-- Start API Data Battlemetrics - Rust-servers.net - Rust-Servers.info -->
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse card-success">
+                    <div class="card-block bg-success">
+                        <h6 class="text-uppercase">Players Online</h6>
+                        <h1 class="display-4"><?php echo $server_players ?><?php echo "/" ?><?php echo $server_max_players ?></h1>
+                    </div>
                 </div>
-                <h6 class="text-uppercase">Players Online</h6>
-	<h1 class="display-4"><?php echo $server_players ?></h1>
             </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-        <div class="card card-inverse card-info">
-            <div class="card-block bg-info">
-                <div class="rotate">
-                    <i class="fa fa-list fa-5x"></i>
-                </div><!-- Total users in database -->
-                <h6 class="text-uppercase">Server Rank</h6>
-	<h1 class="display-4"><?php echo $server_rank ?></h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-        <div class="card card-inverse card-danger">
-            <div class="card-block bg-danger">
-                <div class="rotate">
-                    <i class="fa fa-deviantart fa-5x"></i>
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse card-info">
+                    <div class="card-block bg-info">
+                        <h6 class="text-uppercase">Server Rank</h6>
+                        <h1 class="display-4"><?php echo $server_rank ?></h1>
+                    </div>
                 </div>
-                <h6 class="text-uppercase">uptime</h6>
-                <h1 class="display-4"><?php echo $server_uptime; ?></h1>
             </div>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-        <div class="card card-inverse card-warning">
-            <div class="card-block bg-warning">
-                <div class="rotate">
-                    <i class="fa fa-share fa-5x"></i>
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse card-danger">
+                    <div class="card-block bg-danger">
+                        <h6 class="text-uppercase">uptime</h6>
+                        <h1 class="display-6"><?php echo secondsToTime($server_uptime_battle); ?></h1>
+                    </div>
                 </div>
-                <h6 class="text-uppercase">Entities</h6>
-                <h1 class="display-4"><?php echo $server_entities; ?></h1>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse card-warning">
+                    <div class="card-block bg-warning">
+                        <h6 class="text-uppercase">Entities</h6>
+                        <h1 class="display-4"><?php echo $server_entities; ?></h1>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<!--end row 1-->
-<!--row 2-->
-<div class="row">
-          <div class="col-md-3 col-sm-6">
-              <div class="card card-inverse bg-faded">
-                  <div class="card-block bg-faded">
-                      <div class="rotate">
-                          <i class="fa fa-user fa-5x"></i>
-                      </div>
-                      <h6 class="text-uppercase">Top heli-kills</h6>
-				<h4 class="display-6"><?php if ($heliTotalKills < "1") { echo "No data";} else { echo $heliPlayer; echo " <span class='badge' title='Total amount kills with this weapon'>$heliTotalKills</span>"; }?></h4>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-						<div class="card card-inverse bg-faded">
-								<div class="card-block bg-faded">
-                      <div class="rotate">
-                          <i class="fa fa-list fa-5x"></i>
-                      </div><!-- Total users in database -->
-                      <h6 class="text-uppercase">Top heli-hits</h6>
-				<h4 class="display-6"><?php if ($heliHitsTotal < "1") { echo "No data";} else { echo $heliHitsName; echo " <span class='badge' title='Where players have most hits'>$heliHitsTotal</span>"; }?></h4>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-						<div class="card card-inverse bg-faded">
-								<div class="card-block bg-faded">
-                      <div class="rotate">
-                          <i class="fa fa-deviantart fa-5x"></i>
-                      </div>
-                      <h6 class="text-uppercase">Top StructuresBuilt</h6>
-                      <h4 class="display-6"><?php echo $pname; echo '<br>'; echo " <span class='badge' title='Total amount of kills with this weapon'>$StructuresBuilt</span>"; ?></h4>
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-						<div class="card card-inverse bg-faded">
-								<div class="card-block bg-faded">
-                      <div class="rotate">
-                          <i class="fa fa-share fa-5x"></i>
-                      </div>
-                      <h6 class="text-uppercase">Top time played</h6>
-                      <h4 class="display-7"><?php echo $timePlayedName; echo " <span class='badge' title='Total amount of time played'>$timePlayeTotal</span>"; ?></h4>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- end row 2-->
+        <!-- END API Data Battlemetrics - Rust-servers.net - Rust-Servers.info -->
+        <!-- Start PlayerRanks Top Player for Heli Kills, Heli Hits, Structures Built and Top Time Played -->
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse bg-faded">
+                    <div class="card-block bg-faded">
+                        <h6 class="text-uppercase">Top heli-kills</h6>
+                        <h4 class="display-6">
+                    <?php if ($heliTotalKills < "1") { echo "No data";} else { echo $heliPlayer; echo '<br>'; echo " <span class='badge badge2020' title='Total amount kills with this weapon'>$heliTotalKills</span>"; }?>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse bg-faded">
+                    <div class="card-block bg-faded">
+                        <h6 class="text-uppercase">Top heli-hits</h6>
+                        <h4 class="display-6">
+                    <?php if ($heliHitsTotal < "1") { echo "No data";} else { echo $heliHitsName; echo '<br>'; echo " <span class='badge badge2020' title='Where players have most hits'>$heliHitsTotal</span>"; }?>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse bg-faded">
+                    <div class="card-block bg-faded">
+                        <h6 class="text-uppercase">Top Structures Built</h6>
+                        <h4 class="display-6"><?php if ($StructuresBuilt < "1") { echo "No data";} else { echo $pname; echo '<br>'; echo " <span class='badge badge2020' title='Total amount of kills with this weapon'>$StructuresBuilt</span>"; } ?></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="card card-inverse bg-faded">
+                    <div class="card-block bg-faded">
+                        <h6 class="text-uppercase">Top time played</h6>
+                        <h4 class="display-7"><?php if ($timePlayedTotal <= '00:00:00:00') { echo "No data";} else {  echo $timePlayedName; echo '<br>'; echo " <span class='badge badge2020' title='Total amount of time played'>$timePlayedTotal</span>"; } ?></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- END PlayerRanks Top Player for Heli Kills, Heli Hits, Structures Built and Top Time Played -->
 
-<div class="row">
-    <div class="col-lg-6">
-        <h3>Kill ratio</h3>
+
+<!-- Start SQL Stats for counting Animals -->
+
+<!-- REMOVE THIS LINE TO USE
+
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Boars Killed</h6>
+                    <h1 class="display-4"><?php echo $BoarsKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Bears Killed</h6>
+                    <h1 class="display-4"><?php echo $BearsKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Stags Killed</h6>
+                    <h1 class="display-4"><?php echo $StagsKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Wolves Killed</h6>
+                    <h1 class="display-4"><?php echo $WolvesKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Chickens Killed</h6>
+                    <h1 class="display-4"><?php echo $ChickensKilled ?></h1>
+                </div>
+            </div>
+        </div>
 <?php
-$sql = "SELECT `UserID`,`Name`,`PVPKills`,`KDR`,`Status` FROM playerranksdb2
+$conn_sql_stats_2->close();
+?>
+
+REMOVE THIS LINE TO USE -->
+
+<!-- END SQLStats -->
+
+        <!-- Start PlayerRanks Kill Ratio Table -->
+            <div class="row"> <div class="col-lg-6">
+                <h3>Kill ratio</h3>
+<?php
+
+$sql = "SELECT `UserID`,`Name`,`PVPKills`,`KDR`,`Status` FROM playerranksdb
 ORDER BY 3 desc limit 100";
 
-$result = $conn->query($sql);
+$result = $conn_ply_rnk_2->query($sql);
 
-if ($result->num_rows > 0) {
-// output data of each row
+
+
 echo " <div class='table-responsive'>";
 echo "";
 echo "";
-echo "<table id='example' class='display compact table table-hover table-striped results '>";
+echo "<table id='killratio' class='display compact table table-hover table-striped results '>";
 echo "<thead>";
 echo "<tr>";
 echo "<th>#</th>";
@@ -216,26 +295,27 @@ echo "</tr>";
 echo "</tbody>";
 echo "</table>";
 echo "</div>";
-}
+
 
 ?>
-    </div>
-<div class="col-lg-6">
-    <h3>
-        Death ratio
-    </h3>
-    <?php
-$sql = "SELECT `UserID`,`Name`, `Deaths`, `SDR`, `Status` FROM playerranksdb2
+            </div>
+            <!-- END PlayerRanks Kill Ratio Table -->
+            <!-- Start PlayerRanks Death Ratio Table -->
+            <div class="col-lg-6">
+                <h3>
+                    Death ratio
+                </h3>
+<?php
+
+$sql = "SELECT `UserID`,`Name`, `Deaths`, `SDR`, `Status` FROM playerranksdb
 ORDER BY 3 desc limit 100";
 
-$result = $conn->query($sql);
+$result = $conn_ply_rnk_2->query($sql);
 
-if ($result->num_rows > 0) {
-// output data of each row
 echo " <div class='table-responsive'>";
 echo "";
 echo "";
-echo "<table id='example2' class='display compact table table-hover table-striped results '>";
+echo "<table id='deathratio' class='display compact table table-hover table-striped results '>";
 echo "<thead>";
 echo "<tr>";
 echo "<th>#</th>";
@@ -263,25 +343,25 @@ echo "</tr>";
 echo "</tbody>";
 echo "</table>";
 echo "</div>";
-}
+
 
 ?>
-</div>
-</div>
-
-
-<div class="row">
-    <div class="col-lg-6">
-        <h3>Time Played</h3>
+            </div>
+        </div>
+        <!-- END PlayerRanks Death Ratio Table -->
+        <!-- Start PlayerRanks Time Played Table -->
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Time Played</h3>
 <?php
 
-$sql = "SELECT `UserID`,`Name`, `TimePlayed`, `Status` FROM playerranksdb2
+$sql = "SELECT `UserID`,`Name`, `TimePlayed`, `Status` FROM playerranksdb
 ORDER BY 3 desc limit 100";
-$result = $conn->query($sql);
 
-// output data of each row
+$result = $conn_ply_rnk_2->query($sql);
+
 echo " <div class='table-responsive'>";
-echo "<table id='example3' class='table table-hover table-striped'>";
+echo "<table id='timeplayed' class='table table-hover table-striped'>";
 echo "<thead>";
 echo "<tr>";
 echo "<th>#</th>";
@@ -306,165 +386,208 @@ if ($row['Status'] == 'online'){ echo "<td class='success'>".$row['TimePlayed'].
 if ($row['Status'] == 'online'){ echo "<td class='success'>".$row['Status']."</td>"; } else { echo "<td>".$row['Status']."</td>"; }
 echo "</tr>";
 
-
-
 }
 echo "</tbody>";
 echo "</table>";
 echo "</div>";
 
 ?>
-  </div>
-  <div class="col-lg-6">
-      <h3>
-          Structures
-      </h3>
-      <?php
-  $sql = "SELECT `UserID`,`Name`,`StructuresBuilt`,`StructuresUpgraded` FROM playerranksdb2
-  ORDER BY 3 desc limit 100";
+            </div>
+            <!-- END PlayerRanks Time Played Table -->
+            <!-- Start PlayerRanks Structures Table -->
+            <div class="col-lg-6">
+                <h3>
+                    Structures
+                </h3>
+<?php
 
-  $result = $conn->query($sql);
+$sql = "SELECT `UserID`,`Name`,`StructuresBuilt`,`StructuresUpgraded` FROM playerranksdb
+ORDER BY 3 desc limit 100";
 
-  if ($result->num_rows > 0) {
-  // output data of each row
-  echo " <div class='table-responsive'>";
-  echo "";
-  echo "";
-  echo "<table id='StructuresBuilt' class='display compact table table-hover table-striped results '>";
-  echo "<thead>";
-  echo "<tr>";
-  echo "<th>#</th>";
-  echo "<th>Name</th>";
-  echo "<th>Built</th>";
-  echo "<th>Upgraded</th>";
-  echo "</tr>";
-  echo "</thead>";
-  echo "<tbody>";
+$result = $conn_ply_rnk_2->query($sql);
 
-  $counter = 1;
+echo " <div class='table-responsive'>";
+echo "";
+echo "";
+echo "<table id='Structures' class='display compact table table-hover table-striped results '>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>#</th>";
+echo "<th>Name</th>";
+echo "<th>Built</th>";
+echo "<th>Upgraded</th>";
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
 
-  while($row = $result->fetch_assoc()) {
+$counter = 1;
 
-  $counter2 = $counter++;
+while($row = $result->fetch_assoc()) {
 
-  echo "<tr>";
-  echo "<th scope='row'>$counter2</th>";
-  echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
-  echo "<td>" . $row['StructuresBuilt']. "</td>";
-  echo "<td>" . $row['StructuresUpgraded']. "</td>";
-  echo "</tr>";
+$counter2 = $counter++;
 
-  }
-  echo "</tbody>";
-  echo "</table>";
-  echo "</div>";
-  }
+echo "<tr>";
+echo "<th scope='row'>$counter2</th>";
+echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
+echo "<td>" . $row['StructuresBuilt']. "</td>";
+echo "<td>" . $row['StructuresUpgraded']. "</td>";
+echo "</tr>";
 
-  ?>
-  </div>
-  <!-- end top StructuresBuilt -->
-</div>
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+  
+?>
+          </div>
+      </div>
+      <!-- END PlayerRanks Structures Table -->
+      <!-- Start PlayerRanks Top Players Table -->
+      <div class="row">
+          <div class="col-lg-12">
+              <h3>
+                  Top Players
+              </h3>
+<?php
 
-<div class="row">
-  <div class="col-lg-12">
-      <h3>
-          Top
-      </h3>
-      <?php
-  $sql = "SELECT `UserID`,`Name`,`TimesWounded`,`ExplosivesThrown`,`ArrowsFired`,`BulletsFired`,`RocketsLaunched`,`TimesHealed` FROM playerranksdb2
-  ORDER BY TimePlayed desc limit 100";
+$sql = "SELECT `UserID`,`Name`,`TimesWounded`,`ExplosivesThrown`,`ArrowsFired`,`BulletsFired`,`RocketsLaunched`,`TimesHealed` FROM playerranksdb
+ORDER BY TimePlayed desc limit 100";
 
-  $result = $conn->query($sql);
+$result = $conn_ply_rnk_2->query($sql);
 
-  if ($result->num_rows > 0) {
-  // output data of each row
-  echo " <div class='table-responsive'>";
-  echo "";
-  echo "";
-  echo "<table id='example4' class='display compact table table-hover table-striped results '>";
-  echo "<thead>";
-  echo "<tr>";
-  echo "<th>#</th>";
-  echo "<th>Name</th>";
-  echo "<th>TimesWounded</th>";
-  echo "<th>ExplosivesThrown</th>";
-  echo "<th>ArrowsFired</th>";
-  echo "<th>BulletsFired</th>";
-  echo "<th>RocketsLaunched</th>";
-  echo "<th>TimesHealed</th>";
-  echo "</tr>";
-  echo "</thead>";
-  echo "<tbody>";
+echo " <div class='table-responsive'>";
+echo "";
+echo "";
+echo "<table id='topplayers' class='display compact table table-hover table-striped results '>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>#</th>";
+echo "<th>Name</th>";
+echo "<th>TimesWounded</th>";
+echo "<th>ExplosivesThrown</th>";
+echo "<th>ArrowsFired</th>";
+echo "<th>BulletsFired</th>";
+echo "<th>RocketsLaunched</th>";
+echo "<th>TimesHealed</th>";
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
 
-  $counter = 1;
+$counter = 1;
 
-  while($row = $result->fetch_assoc()) {
+while($row = $result->fetch_assoc()) {
 
-  $counter2 = $counter++;
+$counter2 = $counter++;
 
-  echo "<tr>";
-  echo "<th scope='row'>$counter2</th>";
-  echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
-  echo "<td>" . $row['TimesWounded']. "</td>";
-  echo "<td>" . $row['ExplosivesThrown']. "</td>";
-  echo "<td>" . $row['ArrowsFired']. "</td>";
-  echo "<td>" . $row['BulletsFired']. "</td>";
-  echo "<td>" . $row['RocketsLaunched']. "</td>";
-  echo "<td>" . $row['TimesHealed']. "</td>";
-  echo "</tr>";
+echo "<tr>";
+echo "<th scope='row'>$counter2</th>";
+echo "<td><a href='http://steamcommunity.com/profiles/" . $row['UserID']. "' target='_blank'>" . $row['Name']. "</td>";
+echo "<td>" . $row['TimesWounded']. "</td>";
+echo "<td>" . $row['ExplosivesThrown']. "</td>";
+echo "<td>" . $row['ArrowsFired']. "</td>";
+echo "<td>" . $row['BulletsFired']. "</td>";
+echo "<td>" . $row['RocketsLaunched']. "</td>";
+echo "<td>" . $row['TimesHealed']. "</td>";
+echo "</tr>";
 
-  }
-  echo "</tbody>";
-  echo "</table>";
-  echo "</div>";
-  }
-$conn->close();
-  ?>
-</div>
-</div>
-  <!-- end row -->
-<script>
-// Disable search and ordering by default
-$.extend( $.fn.dataTable.defaults, {
-    searching: true,
-    ordering:  false,
-    pagingType: "simple",
-	bLengthChange: false
-} );
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+?>
+        </div>
+      </div>
+      <!-- END PlayerRanks Top Players Table -->
+      <!-- Start PlayerRanks Top Clan Table -->
+      <div class="row">
+          <div class="col-lg-12">
+              <h3>
+                  Top Clan
+              </h3>
+<?php
 
-$(document).ready(function() {
-    $('#example').DataTable({
-	ordering: true
-	})
-} );
+$sql = "SELECT Clan, SUM(PVPKills) AS ClanPVPKills, SUM(Deaths) as ClanDeaths, SUM(HeadShots) AS ClanHeadshots, SUM(BulletsFired) AS ClanBullets,SUM(RocketsLaunched) AS ClanRockets, 
+SUM(ExplosivesThrown) AS ClanExplosives, SUM(HeliKills) AS ClanHeliKills, SUM(APCKills) AS ClanAPCKills FROM playerranksdb GROUP BY Clan ORDER BY ClanPVPKills DESC";
 
-$(document).ready(function() {
-    $('#example2').DataTable({
-	ordering: true
-	})
-} );
+$result = $conn_ply_rnk_2->query($sql);
 
-$(document).ready(function() {
-    $('#example3').DataTable({
-	ordering: true
-	})
-} );
+echo " <div class='table-responsive'>";
+echo "";
+echo "";
+echo "<table id='clan' class='display compact table table-hover table-striped results '>";
+echo "<thead>";
+echo "<tr>";
+echo "<th>#</th>";
+echo "<th>Clan</th>";
+echo "<th>PVPKills</th>";
+echo "<th>Deaths</th>";
+echo "<th>HeadShots</th>";
+echo "<th>Bullets Fired</th>";
+echo "<th>Rockets Launched</th>";
+echo "<th>Explosives Thrown</th>";
+echo "<th>Heli Kills</th>";
+echo "<th>APC Kills</th>";
+echo "</tr>";
+echo "</thead>";
+echo "<tbody>";
 
-$(document).ready(function() {
-    $('#StructuresBuilt').DataTable({
-	ordering: true
-	})
-} );
+$counter = 1;
 
-$(document).ready(function() {
-    $('#example4').DataTable({
-	ordering: true
-	})
-} );
-$(document).ready(function() {
-    $('#example5').DataTable({
-	ordering: true
-	})
-} );
-</script>
-<script src="js/bootstrap.min.js"></script>
+while($row = $result->fetch_assoc()) {
+
+$counter2 = $counter++;
+
+echo "<tr>";
+echo "<th scope='row'>$counter2</th>";
+echo "<td>" . $row['Clan']. "</td>";
+echo "<td>" . $row['ClanPVPKills']. "</td>";
+echo "<td>" . $row['ClanDeaths']. "</td>";
+echo "<td>" . $row['ClanHeadshots']. "</td>";
+echo "<td>" . $row['ClanBullets']. "</td>";
+echo "<td>" . $row['ClanRockets']. "</td>";
+echo "<td>" . $row['ClanExplosives']. "</td>";
+echo "<td>" . $row['ClanHeliKills']. "</td>";
+echo "<td>" . $row['ClanAPCKills']. "</td>";
+echo "</tr>";
+
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+
+$conn_ply_rnk_2->close();
+?>
+          </div>
+      </div>
+      <!-- END PlayerRanks Top Clan Table -->
+      <script>
+          // Disable search and ordering by default
+          $.extend($
+              .fn
+              .dataTable
+              .defaults, {
+              searching: true,
+              ordering: false,
+              pagingType: "simple",
+              bLengthChange: false
+          });
+          $(document).ready(function () {
+              $('#killratio').DataTable({ordering: true})
+          });
+          $(document).ready(function () {
+              $('#deathratio').DataTable({ordering: true})
+          });
+          $(document).ready(function () {
+              $('#timeplayed').DataTable({ordering: true})
+          });
+          $(document).ready(function () {
+              $('#Structures').DataTable({ordering: true})
+          });
+          $(document).ready(function () {
+              $('#topplayers').DataTable({ordering: true})
+          });
+          $(document).ready(function () {
+              $('#clan').DataTable({ordering: true})
+          });
+      </script>
+      <script src="js/bootstrap.min.js"></script>
