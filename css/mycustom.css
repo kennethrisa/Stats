@@ -1,0 +1,44 @@
+.navbar-default {
+height:66px;
+background-color: #ce422b !important;
+}
+
+.navbar-default .navbar-nav>li>a {
+line-height:30px;
+font-size:18px;
+color: rgba(255,255,255,0.5) !important;
+font-weight: bolder;
+font-family: "Roboto", sans-serif;
+}
+.navbar-default .navbar-nav>li>a:hover {
+color: #000000 !important;
+}
+
+.navbar-default .navbar-brand>img {
+margin-top: -10px !important;
+
+}
+
+.intro-section  {
+	background-image: url("https://rustymayhem.com/public/img/RustyMayhemBackground2blur.jpg") !important; /* Change your background image here */
+	height:650px;
+	border-bottom: #ce422b solid 5px;
+}
+
+.start {
+	margin-top: 520px;
+}
+
+span.badge2020 {
+
+	margin-top: 15px !important;
+	background-color: inherit;
+	border-radius: 0px;
+	color: inherit;
+	font-family: roboto, sans-serif;
+	font-size: 20px;
+
+}
+div .col-md-2020 {
+	width: 20%;
+}
