@@ -4,7 +4,7 @@
 ### Added
 - Support for battlemetrics API.
 - Supports up to 6 servers.
-- Slan stats now available (PlayerRanks).
+- Clan stats now available (PlayerRanks).
 - SQLStats (ChaosCode.io) now supported.
 
 ### Changed
