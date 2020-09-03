@@ -1,5 +1,3 @@
-# DO NOT DOWNLOAD YET, STILL IRONING OUT SOME BUGS
-
 
 # Rust PHP Stats page
 
