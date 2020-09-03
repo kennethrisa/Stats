@@ -6,6 +6,7 @@
 $siteName = "Stats.com"; // Your site name 
 $siteURL = "https://www.battlemetrics.com/"; // Your main site url 
 $siteFavicon = "https://imgur.com/p0KS9wL.png"; // change your favicon here
+$siteLogo = "https://images.discordapp.net/avatars/580514378328309770/9b7f841f67468729167484ee0213cfbb.png?size=64";
 
 //-----------------------------------------------------------------------------------------
 
@@ -17,7 +18,7 @@ $servername_ply_rnk_1 = "localhost";
 $port_ply_rnk_1 = "3306";
 $username_ply_rnk_1 = "dbusername";
 $password_ply_rnk_1 = "mydbpassword";
-$dbname_ply_rnk_1 = "dbname"; 
+$dbname_ply_rnk_1 = "dbname";
 
 // Connection - PlayerRanks - 1
 
@@ -29,7 +30,7 @@ if ($conn_ply_rnk_1->connect_error) {
 }
 
 // Server 1 - SQLStats - 1 
-// Remove line 33 and 48 to use SQL Stats DB
+// Remove line 34 and 49 to use SQL Stats DB
 /*
 $servername_sql_stats_1 = "localhost";
 $port_sql_stats_1 = "3306";
@@ -53,7 +54,7 @@ $srv1LastReset = "<b>Last stats reset time:</b> 08/20";
 
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 64 and 100 to use SERVER 2
+// Remove lines 65 and 101 to use SERVER 2
 
 // Start of Server 2 Database configs
 
@@ -100,7 +101,7 @@ $srv2LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 109 and 146 to use SERVER 3
+// Remove lines 110 and 147 to use SERVER 3
 
 // Start of Server 3 Database configs
 
@@ -146,7 +147,7 @@ $srv3LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 155 and 192 to use SERVER 4
+// Remove lines 156 and 193 to use SERVER 4
 
 // Start of Server 4 Database configs
 
@@ -192,7 +193,7 @@ $srv4LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 201 and 238 to use SERVER 5
+// Remove lines 202 and 239 to use SERVER 5
 
 // Start of Server 5 Database configs
 
@@ -238,7 +239,7 @@ $srv5LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 247 and 284 to use SERVER 2
+// Remove lines 248 and 285 to use SERVER 6
 
 // Start of Server 6 Database configs
 
