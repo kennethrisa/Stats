@@ -8,11 +8,8 @@ Shows stats of players like KDR and played time.
 git clone https://github.com/kennethrisa/Stats.git
 
 ## Short Example:
-rename example-mconfig.php to mconfig.php
-rename example-api-server1.php to api-server1.php
-Edit api-server1.php, find $url and provide your api key after key=yourKey<br>
-for rust-servers.info you only need to change to your server ID
-
+Edit /api/api-server#.php and enter your API details
+- Battlemetrics support
 - Support for multiple servers
 - Support for rust-servers.net and rust-servers.info
 - Updated oxide plugin to Player Ranks
@@ -21,12 +18,10 @@ Im not a pro devloper, just testing and learning!
 
 See the how to section for setup.
 
-Demo: https://demo.altirust.no/
-Kenna - Altirust.no
-
 # Required:
 - Oxide
-- Oxide plugin: Player Ranks
+- Oxide plugin: PlayerRanks
+- battlemetrics.com - no need to register your server
 - rust-servers.net - you need to register your server to get api key
 - rust-servers.info - you need to register your server
 - MySql/MariaDB
@@ -34,8 +29,8 @@ Kenna - Altirust.no
 - php 5.6>
 
 # Oxide plugin:
-Player Ranks (http://oxidemod.org/plugins/player-ranks.2359/)
-Se how to install on oxidemod.org
+PlayerRanks (https://codefling.com/files/file/14-playerranks/)
+Ses how to install on https://codefling.com/files/file/14-playerranks/?tab=details
 
 # How to:
 Im gonna assume you own a dedi box, and we are gonna install all on the same machine where rust server are running.
@@ -132,18 +127,22 @@ extension=php_openssl.dll
 7. Now browse to http://localhost/ and you should see you get info from rust-servers.info and rust-servers.net<br>
 
 ## Rust plugin PlayerRanks.cs
-1. Get latest update from http://oxidemod.org/plugins/player-ranks.2359/ and add it into your rust plugin folder.<br>
+1. Get latest update from https://codefling.com/files/file/14-playerranks/ and add it into your rust plugin folder.<br>
 2. you should now edit the file oxide\config\PlayerRanks.json and fill inn the database information like below<br>
 ```
-"MySQL - Database Name": "rust",
-"MySQL - Host": "localhost",
-"MySQL - Password": "your password",
-"MySQL - Port": 3306,
-"MySQL - Table Name": "playerranksdb",
-"MySQL - Use MySQL": true,
-"MySQL - Username": "rust",
+"MySQL": {
+    "useMySQL": true,
+    "autoWipe": false,
+    "sql_port": 3306,
+    "sql_host": "localhost",
+    "sql_db": "Database",
+    "sql_user": "DBUser",
+    "sql_pass": "UserPassword",
+    "tablename": "playerranksdb",
+    "LBtableName": "playerranksLeaderdb"
+  }
 ```
-3. Go into rust console and type reload PlayerRanks - this plugin will auto create the sql tables.
+3. Go into rust console and type o.reload PlayerRanks - this plugin will auto create the sql tables.
 4. Wait 15 min and it should save the data to the SQL database server, or run this console command: playerranks.save
 
 ## Subdomain
@@ -152,8 +151,7 @@ just remember to open port 80/443 TCP from same as you open the rust port.<br>
 
 You should also consider to move your domain to Cloudflare for faster cdn and website<br>
 You also get free ssl and auto renewal.
-## Hardning nginx
-More coming
+
 # Template by bootstrap
 # Credits
-The man who made this rust plugin: Oxide user: =BBUK= Steenamaroo
+The man who made this rust plugin: Oxide user: Steenamaroo
