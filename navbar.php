@@ -12,8 +12,7 @@ include("mconfig.php");
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand nav2020" href="/"><img src="https://images.discordapp.net/avatars/580514378328309770/9b7f841f67468729167484ee0213cfbb.png?size=64" alt="logo" class="img-rounded"></a> 
-            <!-- change top left logo on the line above-->
+            <a class="navbar-brand nav2020" href="/"><img src="<?php echo $siteLogo; ?>" alt="logo" class="img-rounded"></a> 
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -23,7 +22,7 @@ include("mconfig.php");
                 <li class="hidden">
                     <a class="page-scroll" href="#page-top"></a>
                 </li>
-		        <li><a href="<?php echo $siteURL; ?>">Home</a></li>
+		<li><a href="<?php echo $siteURL; ?>">Home</a></li>
                 <li><a href="?id=1">Server 1</a></li>
 <!--            <li><a href="?id=2">Server 2</a></li> -->
 <!--		<li><a href="?id=3">Server 3</a></li> -->
