@@ -51,7 +51,7 @@
     <div class="col-lg-12">
       <hr><br>
         <p class="pull-right"><a href="#page-top"><i class="fa fa-angle-double-up fa-2x" title="Back to top"></i></a></p>
-        <p class="text-center">2020 &middot; <a href="<?php echo $siteURL; ?>"><?php echo $siteURL; ?></a> &middot;</p>
+        <p class="text-center">2020 &middot; <a href="<?php echo $siteURL; ?>"><?php echo $siteName; ?></a> &middot;</p>
     </div>
   </div>
     <!-- /.row -->
