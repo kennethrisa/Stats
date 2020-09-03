@@ -3,6 +3,10 @@
 // Updated SEPT 2020 by P4R4NORM4L
 // SUPPORTS UP TO 6 SERVERS
 
+$siteName = "Stats.com"; // Your site name 
+$siteURL = "https://www.battlemetrics.com/"; // Your main site url 
+$siteFavicon = "https://imgur.com/p0KS9wL.png"; // change your favicon here
+
 //-----------------------------------------------------------------------------------------
 
 // Start of Server 1 Database configs
@@ -11,9 +15,9 @@
 // Theses settings must match your playerRanks plugin config
 $servername_ply_rnk_1 = "localhost";
 $port_ply_rnk_1 = "3306";
-$username_ply_rnk_1 = "playerRanksdb1";
-$password_ply_rnk_1 = "mypassword";
-$dbname_ply_rnk_1 = "playerRanksdb1"; 
+$username_ply_rnk_1 = "dbusername";
+$password_ply_rnk_1 = "mydbpassword";
+$dbname_ply_rnk_1 = "dbname"; 
 
 // Connection - PlayerRanks - 1
 
@@ -278,8 +282,5 @@ $srv6LastReset = "<b>Last stats reset time:</b> 08/20";
 
 // End of Server 6
 */
-//-----------------------------------------------------------------------------------------
-
-$siteName = "Stats.com";
-$siteURL = "https://www.battlemetrics.com/";
+//----------------------------------------------------------------------------------------- 
 ?>
