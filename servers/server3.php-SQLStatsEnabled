@@ -33,9 +33,49 @@ function cache_output( $content ) {
         <script src="//cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
         <?php
 include("mconfig.php");
-include("api/api-server4.php");
+include("api/api-server3.php");
 ?>
 <?php
+
+// SQLStats Support from ChaosCode.io
+// Count animals being killed as PlayerRanks does not support this data
+
+$sqlBoars = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'BOAR'";
+
+$sqlBears = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'BEAR'";
+
+$sqlStags = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'STAG'";
+
+$sqlWolves = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'WOLF'";
+
+$sqlChicken = "SELECT COUNT(animal) FROM stats_player_animal_kill 
+WHERE animal = 'CHICKEN'";
+
+$result = $conn_sql_stats_3->query($sqlBoars);
+$data = $result->fetch_assoc();
+$BoarsKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_3->query($sqlBears);
+$data = $result->fetch_assoc();
+$BearsKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_3->query($sqlStags);
+$data = $result->fetch_assoc();
+$StagsKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_3->query($sqlWolves);
+$data = $result->fetch_assoc();
+$WolvesKilled =  $data['COUNT(animal)'];
+
+$result = $conn_sql_stats_3->query($sqlChicken);
+$data = $result->fetch_assoc();
+$ChickensKilled =  $data['COUNT(animal)'];
+
+// END SQL Stats
 
 // Start Playerranks 
 $sqlTopHeli = "SELECT Name, HeliKills FROM playerranksdb
@@ -52,22 +92,22 @@ ORDER BY StructuresBuilt desc limit 1";
 $sqlTopOnline = "SELECT Name, TimePlayed FROM playerranksdb
 ORDER BY TimePlayed desc limit 1";
 
-$result = $conn_ply_rnk_4->query($sqlTopHeli);
+$result = $conn_ply_rnk_3->query($sqlTopHeli);
 $data = $result->fetch_assoc();
 $heliPlayer =  $data['Name'];
 $heliTotalKills =  $data['HeliKills'];
 
-$result = $conn_ply_rnk_4->query($sqlTopHeliHits);
+$result = $conn_ply_rnk_3->query($sqlTopHeliHits);
 $data = $result->fetch_assoc();
 $heliHitsName =  $data['Name'];
 $heliHitsTotal =  $data['HeliHits'];
 
-$result = $conn_ply_rnk_4->query($sqlTopStructuresBuilt);
+$result = $conn_ply_rnk_3->query($sqlTopStructuresBuilt);
 $data = $result->fetch_assoc();
 $pname =  $data['Name'];
 $StructuresBuilt =  $data['StructuresBuilt'];
 
-$result = $conn_ply_rnk_4->query($sqlTopOnline);
+$result = $conn_ply_rnk_3->query($sqlTopOnline);
 $data = $result->fetch_assoc();
 $timePlayedName =  $data['Name'];
 $timePlayedTotal =  $data['TimePlayed'];
@@ -75,7 +115,7 @@ $timePlayedTotal =  $data['TimePlayed'];
 ?>
         
             <div class="row start">
-            <div class=""><pre><p><?php echo $srv4LastReset ?></p></pre></div><br />
+            <div class=""><pre><p><?php echo $srv3LastReset ?></p></pre></div><br />
             <!-- Start banner from rust-servers.info -->
 
             <!-- Insert Rust-servers.info banner here-->
@@ -157,6 +197,56 @@ $timePlayedTotal =  $data['TimePlayed'];
         </div>
 <!-- END PlayerRanks Top Player for Heli Kills, Heli Hits, Structures Built and Top Time Played -->
 
+
+<!-- Start SQL Stats for counting Animals -->
+
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Boars Killed</h6>
+                    <h1 class="display-4"><?php echo $BoarsKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Bears Killed</h6>
+                    <h1 class="display-4"><?php echo $BearsKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Stags Killed</h6>
+                    <h1 class="display-4"><?php echo $StagsKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Wolves Killed</h6>
+                    <h1 class="display-4"><?php echo $WolvesKilled ?></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2020 col-sm-6">
+            <div class="card card-inverse card-success">
+                <div class="card-block bg-success">
+                    <h6 class="text-uppercase">Chickens Killed</h6>
+                    <h1 class="display-4"><?php echo $ChickensKilled ?></h1>
+                </div>
+            </div>
+        </div>
+<?php
+$conn_sql_stats_3->close();
+?>
+
+
+<!-- END SQLStats -->
+
         <!-- Start PlayerRanks Kill Ratio Table -->
             <div class="row"> <div class="col-lg-6">
                 <h3>Kill ratio</h3>
@@ -165,7 +255,7 @@ $timePlayedTotal =  $data['TimePlayed'];
 $sql = "SELECT `UserID`,`Name`,`PVPKills`,`KDR`,`Status` FROM playerranksdb
 ORDER BY 3 desc limit 100";
 
-$result = $conn_ply_rnk_4->query($sql);
+$result = $conn_ply_rnk_3->query($sql);
 
 
 
@@ -215,7 +305,7 @@ echo "</div>";
 $sql = "SELECT `UserID`,`Name`, `Deaths`, `SDR`, `Status` FROM playerranksdb
 ORDER BY 3 desc limit 100";
 
-$result = $conn_ply_rnk_4->query($sql);
+$result = $conn_ply_rnk_3->query($sql);
 
 echo " <div class='table-responsive'>";
 echo "";
@@ -263,7 +353,7 @@ echo "</div>";
 $sql = "SELECT `UserID`,`Name`, `TimePlayed`, `Status` FROM playerranksdb
 ORDER BY 3 desc limit 100";
 
-$result = $conn_ply_rnk_4->query($sql);
+$result = $conn_ply_rnk_3->query($sql);
 
 echo " <div class='table-responsive'>";
 echo "<table id='timeplayed' class='table table-hover table-striped'>";
@@ -309,7 +399,7 @@ echo "</div>";
 $sql = "SELECT `UserID`,`Name`,`StructuresBuilt`,`StructuresUpgraded` FROM playerranksdb
 ORDER BY 3 desc limit 100";
 
-$result = $conn_ply_rnk_4->query($sql);
+$result = $conn_ply_rnk_3->query($sql);
 
 echo " <div class='table-responsive'>";
 echo "";
@@ -358,7 +448,7 @@ echo "</div>";
 $sql = "SELECT `UserID`,`Name`,`TimesWounded`,`ExplosivesThrown`,`ArrowsFired`,`BulletsFired`,`RocketsLaunched`,`TimesHealed` FROM playerranksdb
 ORDER BY TimePlayed desc limit 100";
 
-$result = $conn_ply_rnk_4->query($sql);
+$result = $conn_ply_rnk_3->query($sql);
 
 echo " <div class='table-responsive'>";
 echo "";
@@ -414,7 +504,7 @@ echo "</div>";
 $sql = "SELECT Clan, SUM(PVPKills) AS ClanPVPKills, SUM(Deaths) as ClanDeaths, SUM(HeadShots) AS ClanHeadshots, SUM(BulletsFired) AS ClanBullets,SUM(RocketsLaunched) AS ClanRockets, 
 SUM(ExplosivesThrown) AS ClanExplosives, SUM(HeliKills) AS ClanHeliKills, SUM(APCKills) AS ClanAPCKills FROM playerranksdb GROUP BY Clan ORDER BY ClanPVPKills DESC";
 
-$result = $conn_ply_rnk_4->query($sql);
+$result = $conn_ply_rnk_3->query($sql);
 
 echo " <div class='table-responsive'>";
 echo "";
@@ -460,7 +550,7 @@ echo "</tbody>";
 echo "</table>";
 echo "</div>";
 
-$conn_ply_rnk_4->close();
+$conn_ply_rnk_3->close();
 ?>
           </div>
       </div>

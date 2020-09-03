@@ -37,48 +37,6 @@ include("api/api-server2.php");
 ?>
 <?php
 
-// SQLStats Support from ChaosCode.io
-// Count animals being killed as PlayerRanks does not support this data
-// Remove lines 44,79,206 and 252 to use 
-
-/*
-$sqlBoars = "SELECT COUNT(animal) FROM stats_player_animal_kill 
-WHERE animal = 'BOAR'";
-
-$sqlBears = "SELECT COUNT(animal) FROM stats_player_animal_kill 
-WHERE animal = 'BEAR'";
-
-$sqlStags = "SELECT COUNT(animal) FROM stats_player_animal_kill 
-WHERE animal = 'STAG'";
-
-$sqlWolves = "SELECT COUNT(animal) FROM stats_player_animal_kill 
-WHERE animal = 'WOLF'";
-
-$sqlChicken = "SELECT COUNT(animal) FROM stats_player_animal_kill 
-WHERE animal = 'CHICKEN'";
-
-$result = $conn_sql_stats_2->query($sqlBoars);
-$data = $result->fetch_assoc();
-$BoarsKilled =  $data['COUNT(animal)'];
-
-$result = $conn_sql_stats_2->query($sqlBears);
-$data = $result->fetch_assoc();
-$BearsKilled =  $data['COUNT(animal)'];
-
-$result = $conn_sql_stats_2->query($sqlStags);
-$data = $result->fetch_assoc();
-$StagsKilled =  $data['COUNT(animal)'];
-
-$result = $conn_sql_stats_2->query($sqlWolves);
-$data = $result->fetch_assoc();
-$WolvesKilled =  $data['COUNT(animal)'];
-
-$result = $conn_sql_stats_2->query($sqlChicken);
-$data = $result->fetch_assoc();
-$ChickensKilled =  $data['COUNT(animal)'];
-*/
-// END SQL Stats
-
 // Start Playerranks 
 $sqlTopHeli = "SELECT Name, HeliKills FROM playerranksdb
 where HeliKills > 0
@@ -198,59 +156,6 @@ $timePlayedTotal =  $data['TimePlayed'];
             </div>
         </div>
 <!-- END PlayerRanks Top Player for Heli Kills, Heli Hits, Structures Built and Top Time Played -->
-
-
-<!-- Start SQL Stats for counting Animals -->
-
-<!-- REMOVE THIS LINE TO USE
-
-        <div class="col-md-2020 col-sm-6">
-            <div class="card card-inverse card-success">
-                <div class="card-block bg-success">
-                    <h6 class="text-uppercase">Boars Killed</h6>
-                    <h1 class="display-4"><?php echo $BoarsKilled ?></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2020 col-sm-6">
-            <div class="card card-inverse card-success">
-                <div class="card-block bg-success">
-                    <h6 class="text-uppercase">Bears Killed</h6>
-                    <h1 class="display-4"><?php echo $BearsKilled ?></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2020 col-sm-6">
-            <div class="card card-inverse card-success">
-                <div class="card-block bg-success">
-                    <h6 class="text-uppercase">Stags Killed</h6>
-                    <h1 class="display-4"><?php echo $StagsKilled ?></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2020 col-sm-6">
-            <div class="card card-inverse card-success">
-                <div class="card-block bg-success">
-                    <h6 class="text-uppercase">Wolves Killed</h6>
-                    <h1 class="display-4"><?php echo $WolvesKilled ?></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2020 col-sm-6">
-            <div class="card card-inverse card-success">
-                <div class="card-block bg-success">
-                    <h6 class="text-uppercase">Chickens Killed</h6>
-                    <h1 class="display-4"><?php echo $ChickensKilled ?></h1>
-                </div>
-            </div>
-        </div>
-<?php
-$conn_sql_stats_2->close();
-?>
-
-REMOVE THIS LINE TO USE -->
-
-<!-- END SQLStats -->
 
         <!-- Start PlayerRanks Kill Ratio Table -->
             <div class="row"> <div class="col-lg-6">
