@@ -29,7 +29,7 @@ if ($conn_ply_rnk_1->connect_error) {
 }
 
 // Server 1 - SQLStats - 1 
-// Remove line 29 and 44 to use SQL Stats DB
+// Remove line 33 and 48 to use SQL Stats DB
 /*
 $servername_sql_stats_1 = "localhost";
 $port_sql_stats_1 = "3306";
@@ -53,7 +53,7 @@ $srv1LastReset = "<b>Last stats reset time:</b> 08/20";
 
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 58 and 94 to use SERVER 2
+// Remove lines 64 and 100 to use SERVER 2
 
 // Start of Server 2 Database configs
 
@@ -100,7 +100,7 @@ $srv2LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 105 and 142 to use SERVER 3
+// Remove lines 109 and 146 to use SERVER 3
 
 // Start of Server 3 Database configs
 
@@ -146,7 +146,7 @@ $srv3LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 151 and 188 to use SERVER 4
+// Remove lines 155 and 192 to use SERVER 4
 
 // Start of Server 4 Database configs
 
@@ -192,7 +192,7 @@ $srv4LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 197 and 234 to use SERVER 5
+// Remove lines 201 and 238 to use SERVER 5
 
 // Start of Server 5 Database configs
 
@@ -238,7 +238,7 @@ $srv5LastReset = "<b>Last stats reset time:</b> 08/20";
 */
 //-----------------------------------------------------------------------------------------
 
-// Remove lines 243 and 280 to use SERVER 2
+// Remove lines 247 and 284 to use SERVER 2
 
 // Start of Server 6 Database configs
 
