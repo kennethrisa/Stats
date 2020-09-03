@@ -1,3 +1,6 @@
+# DO NOT DOWNLOAD YET, STILL IRONING OUT SOME BUGS
+
+
 # Rust PHP Stats page
 
 Shows stats of players like KDR and played time.
