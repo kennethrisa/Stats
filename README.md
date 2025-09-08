@@ -1,3 +1,7 @@
+## 📦 Repository Archived
+
+This repository has been archived and is no longer maintained.
+
 # Rust PHP Stats page
 
 Shows stats of players like KDR and played time.
